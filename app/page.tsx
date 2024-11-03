@@ -3,7 +3,6 @@ import {
   Title,
   TopBar,
   Filters,
-  ProductCard,
   ProductGroupList,
 } from '@/components/shared'
 
@@ -35,7 +34,7 @@ export default function Home() {
                     items: [{ price: 100 }],
                   },
                   {
-                    id: 1,
+                    id: 31,
                     name: 'Cheese Pizza',
                     imageUrl:
                       'https://media.dodostatic.net/image/r:292x292/11EE7D610BBEB562BD4D48786AD87270.webp',
@@ -51,7 +50,7 @@ export default function Home() {
                   },
                 ]}
                 listClassName="grid-cols-3"
-                catedoryId={1}
+                categoryId={1}
               />
             </div>
           </div>
