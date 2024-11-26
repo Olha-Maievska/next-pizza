@@ -6,12 +6,20 @@ import { FilterCheckbox } from './filter-checkbox'
 import { Input } from '../ui'
 import { RangeSlider } from './range-slider'
 import { CheckboxFiltersGroup } from './checkbox-filters-group'
+import { useFilterIngredients } from '@/hooks/useFilterIngredients'
 
 interface Props {
   className?: string
 }
 
 export const Filters: React.FC<Props> = ({ className }) => {
+  const { ingredients, loading } = useFilterIngredients()
+
+  const items = ingredients.map((item) => ({
+    text: item.name,
+    value: item.id.toString(),
+  }))
+
   return (
     <div className={className}>
       <Title text="Filtration" size="sm" className="font-bold mb-5" />
@@ -42,83 +50,10 @@ export const Filters: React.FC<Props> = ({ className }) => {
         title="Ingredients:"
         className="mt-5"
         limit={6}
-        items={[
-          {
-            text: 'Cheese sauce',
-            value: '1',
-          },
-          {
-            text: 'Mozzarella',
-            value: '2',
-          },
-          {
-            text: 'Garlic',
-            value: '3',
-          },
-          {
-            text: 'Pickles',
-            value: '4',
-          },
-          {
-            text: 'Red onion',
-            value: '5',
-          },
-          {
-            text: 'Tomatoes',
-            value: '6',
-          },
-          {
-            text: 'Cheese sauce',
-            value: '1',
-          },
-          {
-            text: 'Mozzarella',
-            value: '2',
-          },
-          {
-            text: 'Garlic',
-            value: '3',
-          },
-          {
-            text: 'Pickles',
-            value: '4',
-          },
-          {
-            text: 'Red onion',
-            value: '5',
-          },
-          {
-            text: 'Tomatoes',
-            value: '6',
-          },
-        ]}
-        defaultItems={[
-          {
-            text: 'Cheese sauce',
-            value: '1',
-          },
-          {
-            text: 'Mozzarella',
-            value: '2',
-          },
-          {
-            text: 'Garlic',
-            value: '3',
-          },
-          {
-            text: 'Pickles',
-            value: '4',
-          },
-          {
-            text: 'Red onion',
-            value: '5',
-          },
-          {
-            text: 'Tomatoes',
-            value: '6',
-          },
-        ]}
+        items={items}
+        defaultItems={items.slice(0, 6)}
         searchInputPlaceholder="Search..."
+        loading={loading}
       />
     </div>
   )

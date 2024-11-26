@@ -1,6 +1,6 @@
 import React from 'react'
 import { FilterChecboxProps, FilterCheckbox } from './filter-checkbox'
-import { Input } from '../ui'
+import { Input, Skeleton } from '../ui'
 
 type Item = FilterChecboxProps
 interface Props {
@@ -8,6 +8,7 @@ interface Props {
   title: string
   items: Item[]
   defaultItems: Item[]
+  loading?: boolean
   limit: number
   searchInputPlaceholder?: string
   defaultValue?: string[]
@@ -20,6 +21,7 @@ export const CheckboxFiltersGroup: React.FC<Props> = ({
   items,
   defaultItems,
   limit,
+  loading,
   searchInputPlaceholder,
   defaultValue,
   onChange,
@@ -35,6 +37,20 @@ export const CheckboxFiltersGroup: React.FC<Props> = ({
 
   const handleChangeSearchInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchValue(e.target.value)
+  }
+
+  if (loading) {
+    return (
+      <div className={className}>
+        <p className="font-bold mb-3">{title}</p>
+        {...Array(limit)
+          .fill(null)
+          .map((_, i) => (
+            <Skeleton key={i} className="mb-4 h-6 rounded-[8px]" />
+          ))}
+        <Skeleton className="w-28 mb-4 h-6 rounded-[8px]" />
+      </div>
+    )
   }
 
   return (
