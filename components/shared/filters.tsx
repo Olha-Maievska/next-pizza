@@ -13,7 +13,7 @@ interface Props {
 }
 
 export const Filters: React.FC<Props> = ({ className }) => {
-  const { ingredients, loading } = useFilterIngredients()
+  const { ingredients, loading, onAddId, selectedIds } = useFilterIngredients()
 
   const items = ingredients.map((item) => ({
     text: item.name,
@@ -25,8 +25,8 @@ export const Filters: React.FC<Props> = ({ className }) => {
       <Title text="Filtration" size="sm" className="font-bold mb-5" />
 
       <div className="flex flex-col gap-4">
-        <FilterCheckbox text="You can assembling" value="1" />
-        <FilterCheckbox text="New items" value="2" />
+        <FilterCheckbox name="assembling" text="You can assembling" value="1" />
+        <FilterCheckbox name="new" text="New items" value="2" />
       </div>
 
       <div className="mt-5 border-y border-y-neutral-100 py-6 pb-7">
@@ -47,13 +47,16 @@ export const Filters: React.FC<Props> = ({ className }) => {
       </div>
 
       <CheckboxFiltersGroup
-        title="Ingredients:"
         className="mt-5"
+        title="Ingredients"
+        name="ingredients"
         limit={6}
         items={items}
         defaultItems={items.slice(0, 6)}
         searchInputPlaceholder="Search..."
         loading={loading}
+        onClickCheckbox={onAddId}
+        selectedIds={selectedIds}
       />
     </div>
   )
