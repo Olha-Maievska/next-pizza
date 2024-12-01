@@ -1,7 +1,6 @@
-import { Catedories } from '@/components/shared'
 import { hashSync } from 'bcrypt'
 import { prisma } from './prisma-client'
-import { ingredients, catedories, products } from './consts'
+import { ingredients, categories, products } from './consts'
 import { Prisma } from '@prisma/client'
 
 const randomDecimalNumber = (min: number, max: number) => {
@@ -46,7 +45,7 @@ async function up() {
   })
 
   await prisma.category.createMany({
-    data: catedories,
+    data: categories,
   })
 
   await prisma.ingredient.createMany({

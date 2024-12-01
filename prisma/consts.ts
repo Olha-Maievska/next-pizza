@@ -1,4 +1,4 @@
-export const catedories = [
+export const categories = [
   { name: 'Pizzas' },
   { name: 'Breakfast' },
   { name: 'Snacks' },
@@ -116,38 +116,38 @@ export const products = [
     categoryId: 3,
   },
   {
-    name: 'Baked Potatoes with Sauce 🌱',
+    name: 'Baked Potatoes with Sauce',
     imageUrl: '/images/products/snacks/french-potatoes.webp',
     categoryId: 3,
   },
   {
     name: 'Dodster',
-    imageUrl: '/images/products/pizzas/dodster.webp',
+    imageUrl: '/images/products/snacks/dodster.webp',
     categoryId: 3,
   },
   {
-    name: 'Spicy Dodster 🌶️🌶️',
-    imageUrl: '/images/products/pizzas/spicy-dodster.webp',
+    name: 'Spicy Dodster',
+    imageUrl: '/images/products/snacks/spicy-dodster.webp',
     categoryId: 3,
   },
   {
     name: 'Banana Milkshake',
-    imageUrl: '/images/products/cocktails/banana.webp',
+    imageUrl: '/images/products/cocktails/banana.jpg',
     categoryId: 4,
   },
   {
     name: 'Caramel Apple Milkshake',
-    imageUrl: '/images/products/cocktails/caramel.webp',
+    imageUrl: '/images/products/cocktails/caramel.jpg',
     categoryId: 4,
   },
   {
     name: 'Oreo Cookie Milkshake',
-    imageUrl: '/images/products/cocktails/oreo.webp',
+    imageUrl: '/images/products/cocktails/oreo.jpg',
     categoryId: 4,
   },
   {
-    name: 'Classic Milkshake 👶',
-    imageUrl: '/images/products/cocktails/classic.webp',
+    name: 'Classic Milkshake',
+    imageUrl: '/images/products/cocktails/classic.jpg',
     categoryId: 4,
   },
   {
