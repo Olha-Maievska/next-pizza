@@ -13,7 +13,12 @@ export const ProductImage: React.FC<Props> = ({
   size,
 }) => {
   return (
-    <div className={className}>
+    <div
+      className={cn(
+        'flex items-center justify-center flex-1 relative w-full',
+        className
+      )}
+    >
       <img
         className={cn(
           'relative left-2 top-2 transition-all z-10 duration-300',
