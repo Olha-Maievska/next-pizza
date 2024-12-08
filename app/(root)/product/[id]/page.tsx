@@ -3,7 +3,7 @@ import {
   GroupVariant,
   ProductImage,
   Title,
-} from '@/components/shared'
+} from '@/shared/components/shared'
 import { prisma } from '@/prisma/prisma-client'
 import { notFound } from 'next/navigation'
 
@@ -12,6 +12,10 @@ export default async function ProductPage({
 }: {
   params: { id: string }
 }) {
+  if (!id) {
+    return notFound()
+  }
+
   const product = await prisma.product.findFirst({ where: { id: Number(id) } })
 
   if (!product) {

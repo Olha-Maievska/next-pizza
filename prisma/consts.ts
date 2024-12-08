@@ -10,17 +10,17 @@ export const ingredients = [
   {
     name: 'Cheese rim',
     price: 3,
-    imageUrl: '/images/ingredients/cheese-rim.png',
+    imageUrl: '/images/ingredients/сheese-rim.png',
   },
   {
     name: 'Creamy mozzarella',
     price: 4,
-    imageUrl: '/images/ingredients/mozzarella.png',
+    imageUrl: '/images/ingredients/сreamy-mozzarella.png',
   },
   {
     name: 'Cheddar and parmesan cheeses',
     price: 4,
-    imageUrl: '/images/ingredients/cheddar-parmesan.png',
+    imageUrl: '/images/ingredients/сheddar-parmesan.png',
   },
   {
     name: 'Hot Jalapeno Pepper',
@@ -80,7 +80,7 @@ export const ingredients = [
   {
     name: 'Sweet Peppers',
     price: 2,
-    imageUrl: '/images/ingredients/sweet-pepper.png',
+    imageUrl: '/images/ingredients/sweet-peppers.png',
   },
   {
     name: 'Feta Cheese Cubes',

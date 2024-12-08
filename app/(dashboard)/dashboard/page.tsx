@@ -1,4 +1,4 @@
-import { Container, Title } from '@/components/shared'
+import { Container, Title } from '@/shared/components/shared'
 
 export default async function Dashboard() {
   return (
