@@ -1,3 +1,4 @@
+import { IngredientItem } from './ingredient-item';
 export { Header } from './header'
 export { Container } from './container'
 export { Title } from './title'
@@ -14,4 +15,5 @@ export { ProductImage } from './product-image'
 export { GroupVariant } from './group-variant'
 export { ChooseProductForm } from './choose-product-form'
 export { ChoosePizzaForm } from './choose-pizza-form'
+export { IngredientItem } from './ingredient-item'
 export * from './modals'

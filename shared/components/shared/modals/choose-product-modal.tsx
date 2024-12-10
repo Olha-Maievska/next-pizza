@@ -8,6 +8,7 @@ import { useRouter } from 'next/navigation'
 import { ChooseProductForm } from '../choose-product-form'
 import { ProductWithRelations } from '@/shared/@types/prizma'
 import { ChoosePizzaForm } from '../choose-pizza-form'
+import { Description } from '@radix-ui/react-dialog'
 
 interface Props {
   product: ProductWithRelations
@@ -26,6 +27,7 @@ export const ChooseProductModal: React.FC<Props> = ({ className, product }) => {
           'p-0 w-[1060px] max-w-[1060px] min-h-[500px] bg-white overflow-hidden',
           className
         )}
+        aria-describedby={undefined}
       >
         <DialogTitle className="hidden">Choose a pizza</DialogTitle>
 

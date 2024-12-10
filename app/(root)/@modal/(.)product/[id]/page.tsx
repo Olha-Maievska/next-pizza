@@ -3,10 +3,12 @@ import { prisma } from '@/prisma/prisma-client'
 import { notFound } from 'next/navigation'
 
 export default async function ProductModalPage({
-  params: { id },
+  params,
 }: {
   params: { id: string }
 }) {
+  const { id } = await params
+
   if (!id) {
     return notFound()
   }
