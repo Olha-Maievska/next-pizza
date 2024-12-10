@@ -10,6 +10,8 @@ import {
 import Link from 'next/link'
 import { Button } from '../ui'
 import { ArrowRight } from 'lucide-react'
+import { CartDrawerItem } from './cart-drawer-item'
+import { getCartItemDetails } from '@/shared/lib'
 
 interface Props {
   className?: string
@@ -28,6 +30,21 @@ export const CartDrawer: React.FC<React.PropsWithChildren<Props>> = ({
             Cart has <span className="font-bold">3</span> items
           </SheetTitle>
         </SheetHeader>
+
+        <div className="-mx-6 mt-5 overflow-auto flex-1">
+          <div className="mb-2">
+            <CartDrawerItem
+              id={1}
+              imageUrl=""
+              name="Piiza"
+              details={getCartItemDetails(1, 20, [])}
+              price={20}
+              quantity={1}
+              disabled={false}
+              className=""
+            />
+          </div>
+        </div>
 
         <SheetFooter className="-mx-6 bg-white p-8">
           <div className="w-full">
