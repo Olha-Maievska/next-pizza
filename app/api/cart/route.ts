@@ -7,15 +7,12 @@ export async function GET(req: NextRequest) {
     const token = req.cookies.get('token')?.value
 
     if (!token) {
-      return NextResponse.json({ items: [] })
+      return NextResponse.json({ totalAmount: 0, items: [] })
     }
 
     const userCart = await prisma.cart.findFirst({
       where: {
         OR: [
-          {
-            userId,
-          },
           {
             token,
           },
