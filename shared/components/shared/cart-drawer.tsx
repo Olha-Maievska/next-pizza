@@ -48,7 +48,7 @@ export const CartDrawer: React.FC<React.PropsWithChildren> = ({ children }) => {
         </SheetHeader>
 
         <div className="-mx-6 mt-5 overflow-auto flex-1">
-          {cartItems.map((item) => (
+          {cartItems?.map((item) => (
             <div className="mb-2" key={item.id}>
               <CartDrawerItem
                 id={item.id}

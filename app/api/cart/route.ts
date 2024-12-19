@@ -1,6 +1,8 @@
 import { prisma } from '@/prisma/prisma-client'
 import { NextRequest, NextResponse } from 'next/server'
 import crypto from 'crypto'
+import { findOrCreateCart, updateCartTotalAmount } from '@/shared/lib'
+import { CreateCartItemValues } from '@/shared/services/dto/cart-dto'
 
 export async function GET(req: NextRequest) {
   try {
@@ -55,11 +57,44 @@ export async function POST(req: NextRequest) {
       token = crypto.randomUUID()
     }
 
-    const cart = await prisma.cart.create({
-      data: {
-        token,
+    const userCart = await findOrCreateCart(token)
+    const data = (await req.json()) as CreateCartItemValues
+
+    const findCartItem = await prisma.cartItem.findFirst({
+      where: {
+        cartId: userCart.id,
+        productItemId: data.productItemId,
+        ingredients: { every: { id: { in: data.ingredients } } },
       },
     })
+
+    if (findCartItem) {
+      await prisma.cartItem.update({
+        where: { id: findCartItem.id },
+        data: {
+          quantity: findCartItem.quantity + 1,
+        },
+      })
+    } else {
+      await prisma.cartItem.create({
+        data: {
+          cartId: userCart.id,
+          productItemId: data.productItemId,
+          quantity: 1,
+          ingredients: {
+            connect: data.ingredients?.map((id) => ({ id })),
+          },
+        },
+      })
+    }
+
+    const updatedUserCart = await updateCartTotalAmount(token)
+
+    const response = NextResponse.json(updatedUserCart)
+
+    response.cookies.set('token', token)
+
+    return response
   } catch (error) {
     console.log('[CART_GET] Server error', error)
 
