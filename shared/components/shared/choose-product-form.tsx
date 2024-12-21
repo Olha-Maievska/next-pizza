@@ -36,7 +36,7 @@ export const ChooseProductForm: React.FC<Props> = ({
 
         <Button
           className="text-base h-[55px] px-10 rounded-[18px] w-full mt-10"
-          onClick={onSubmit}
+          onClick={() => onSubmit?.()}
           loading={loading}
         >
           <Plus className="mr-1" size={16} />

@@ -10,34 +10,28 @@ import { ProductWithRelations } from '@/shared/@types/prizma'
 import { ChoosePizzaForm } from '../choose-pizza-form'
 import { useCartStore } from '@/shared/store'
 import toast from 'react-hot-toast'
-
 interface Props {
   product: ProductWithRelations
   className?: string
 }
-
 export const ChooseProductModal: React.FC<Props> = ({ className, product }) => {
   const router = useRouter()
   const firstItem = product.items[0]
   const isPizzaForm = Boolean(product.items[0].pizzaType)
-  const [addCartItem, loading] = useCartStore(({ addCartItem, loading }) => [
-    addCartItem,
-    loading,
-  ])
+  const addCartItem = useCartStore((state) => state.addCartItem)
+  const loading = useCartStore((state) => state.loading)
 
-  const onAddProduct = () => {
-    addCartItem({
-      productItemId: firstItem.id,
-    })
-  }
-
-  const onAddPizza = async (productItemId: number, ingredients: number[]) => {
+  const onSubmit = async (productItemId?: number, ingredients?: number[]) => {
     try {
-      await addCartItem({ productItemId, ingredients })
-      toast.success('Pizza added to cart')
+      const itemID = productItemId ?? firstItem.id
+
+      await addCartItem({ productItemId: itemID, ingredients })
+
+      toast.success(`${product.name} added to cart`)
+      router.back()
     } catch (error) {
-      toast.error('Failed to add pizza to cart')
-      console.log(error)
+      toast.error(`Failed to add ${product.name} to cart`)
+      console.error(error)
     }
   }
 
@@ -58,7 +52,7 @@ export const ChooseProductModal: React.FC<Props> = ({ className, product }) => {
             name={product.name}
             items={product.items}
             ingredients={product.ingredients}
-            onSubmit={onAddPizza}
+            onSubmit={onSubmit}
             loading={loading}
           />
         ) : (
@@ -66,7 +60,7 @@ export const ChooseProductModal: React.FC<Props> = ({ className, product }) => {
             imageUrl={product.imageUrl}
             name={product.name}
             price={firstItem.price}
-            onSubmit={onAddProduct}
+            onSubmit={onSubmit}
             loading={loading}
           />
         )}
