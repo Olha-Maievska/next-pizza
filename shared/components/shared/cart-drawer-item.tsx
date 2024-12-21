@@ -15,7 +15,6 @@ interface Props extends CartItemProps {
 
 export const CartDrawerItem: React.FC<Props> = ({
   className,
-  id,
   imageUrl,
   details,
   name,
@@ -26,7 +25,15 @@ export const CartDrawerItem: React.FC<Props> = ({
   onClickRemoveItem,
 }) => {
   return (
-    <div className={cn('flex gap-6 bg-white p-5', className)}>
+    <div
+      className={cn(
+        'flex gap-6 bg-white p-5',
+        {
+          'opacity-50 pointer-events-none': disabled,
+        },
+        className
+      )}
+    >
       <CartItem.Image src={imageUrl} />
 
       <div className="flex-1">

@@ -6,7 +6,6 @@ import { CreateCartItemValues } from '@/shared/services/dto/cart-dto'
 
 export async function GET(req: NextRequest) {
   try {
-    const userId = 1
     const token = req.cookies.get('token')?.value
 
     if (!token) {
@@ -64,7 +63,9 @@ export async function POST(req: NextRequest) {
       where: {
         cartId: userCart.id,
         productItemId: data.productItemId,
-        ingredients: { every: { id: { in: data.ingredients } } },
+        ingredients: data.ingredients
+          ? { every: { id: { in: data.ingredients } } }
+          : undefined,
       },
     })
 
