@@ -11,11 +11,14 @@ import {
 } from '../ui/sheet'
 import Link from 'next/link'
 import { Button } from '../ui'
-import { ArrowRight } from 'lucide-react'
+import { ArrowLeft, ArrowRight } from 'lucide-react'
 import { CartDrawerItem } from './cart-drawer-item'
 import { getCartItemDetails } from '@/shared/lib'
 import { useCartStore } from '@/shared/store'
 import { PizzaSize, PizzaType } from '@/shared/consts/pizza'
+import Image from 'next/image'
+import { Title } from './title'
+import { cn } from '@/shared/lib/utils'
 
 export const CartDrawer: React.FC<React.PropsWithChildren> = ({ children }) => {
   const fetchCartItems = useCartStore((state) => state.fetchCartItems)
@@ -41,58 +44,87 @@ export const CartDrawer: React.FC<React.PropsWithChildren> = ({ children }) => {
     <Sheet>
       <SheetTrigger asChild>{children}</SheetTrigger>
       <SheetContent className="flex flex-col justify-between pb-0 bg-[#F4F1EE]">
-        <SheetHeader>
-          <SheetTitle>
-            Cart has <span className="font-bold">{cartItems.length}</span> items
-          </SheetTitle>
-        </SheetHeader>
+        <div
+          className={cn(
+            'flex flex-col h-full',
+            !totalAmount && 'justify-center'
+          )}
+        >
+          {totalAmount > 0 && (
+            <>
+              <SheetHeader>
+                <SheetTitle>
+                  Cart has <span className="font-bold">{cartItems.length}</span>{' '}
+                  items
+                </SheetTitle>
+              </SheetHeader>
 
-        <div className="-mx-6 mt-5 overflow-auto flex-1">
-          {cartItems?.map((item) => (
-            <div className="mb-2" key={item.id}>
-              <CartDrawerItem
-                id={item.id}
-                imageUrl={item.imageUrl}
-                name={item.name}
-                details={
-                  item.pizzaType && item.size
-                    ? getCartItemDetails(
-                        item.pizzaType as PizzaType,
-                        item.size as PizzaSize,
-                        item.ingredients
-                      )
-                    : ''
-                }
-                price={item.price}
-                quantity={item.quantity}
-                disabled={item.disabled}
-                onClickCountBtn={(type) =>
-                  onClickCountBtn(item.id, item.quantity, type)
-                }
-                onClickRemoveItem={() => removeCartItem(item.id)}
+              <div className="-mx-6 mt-5 overflow-auto flex-1">
+                {cartItems?.map((item) => (
+                  <div className="mb-2" key={item.id}>
+                    <CartDrawerItem
+                      id={item.id}
+                      imageUrl={item.imageUrl}
+                      name={item.name}
+                      details={
+                        item.pizzaType && item.size
+                          ? getCartItemDetails(
+                              item.pizzaType as PizzaType,
+                              item.size as PizzaSize,
+                              item.ingredients
+                            )
+                          : ''
+                      }
+                      price={item.price}
+                      quantity={item.quantity}
+                      disabled={item.disabled}
+                      onClickCountBtn={(type) =>
+                        onClickCountBtn(item.id, item.quantity, type)
+                      }
+                      onClickRemoveItem={() => removeCartItem(item.id)}
+                    />
+                  </div>
+                ))}
+              </div>
+
+              <SheetFooter className="-mx-6 bg-white p-8">
+                <div className="w-full">
+                  <div className="flex mb-4">
+                    <span className="flex flex-1 text-lg text-neutral-500">
+                      Subtotal:
+                      <div className="flex-1 border-b border-b-neutral-200 border-dashed relative -top-1 mx-2"></div>
+                    </span>
+                    <span className="font-bold text-lg">{totalAmount} $</span>
+                  </div>
+
+                  <Link href={'/cart'}>
+                    <Button type="submit" className="w-full h-12 text-base">
+                      Place an order
+                      <ArrowRight className="w-5 ml-2" />
+                    </Button>
+                  </Link>
+                </div>
+              </SheetFooter>
+            </>
+          )}
+
+          {!totalAmount && (
+            <div className="w-72 mx-auto text-center">
+              <Image
+                src="/empty-cart.svg"
+                alt="empty cart"
+                width={250}
+                height={250}
               />
+              <SheetTitle className="mt-4 text-lg">
+                Your cart is empty
+              </SheetTitle>
+              <p className="text-center text-gray-400 mb-5">
+                Add at least one pizza to the cart
+              </p>
             </div>
-          ))}
+          )}
         </div>
-
-        <SheetFooter className="-mx-6 bg-white p-8">
-          <div className="w-full">
-            <div className="flex mb-4">
-              <span className="flex flex-1 text-lg text-neutral-500">
-                Subtotal:
-                <div className="flex-1 border-b border-b-neutral-200 border-dashed relative -top-1 mx-2"></div>
-              </span>
-              <span className="font-bold text-lg">{totalAmount} $</span>
-            </div>
-
-            <Link href={'/cart'}>
-              <Button type="submit" className="w-full h-12 text-base">
-                Place an order
-                <ArrowRight className="w-5 ml-2" />
-              </Button>
-            </Link>
-          </div>
-        </SheetFooter>
       </SheetContent>
     </Sheet>
   )
