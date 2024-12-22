@@ -6,7 +6,8 @@ import { cn } from '@/shared/lib/utils'
 import { DialogContent, DialogTitle } from '@/shared/components/ui/dialog'
 import { useRouter } from 'next/navigation'
 import { ProductWithRelations } from '@/shared/@types/prizma'
-import { ProductFrom } from '../product-from'
+import { ProductForm } from '../product-form'
+
 interface Props {
   product: ProductWithRelations
   className?: string
@@ -25,7 +26,7 @@ export const ChooseProductModal: React.FC<Props> = ({ className, product }) => {
       >
         <DialogTitle className="hidden">Choose a pizza</DialogTitle>
 
-        <ProductFrom product={product} onSubmit={() => router.back()} />
+        <ProductForm product={product} onSubmit={() => router.back()} />
       </DialogContent>
     </Dialog>
   )

@@ -12,7 +12,7 @@ interface Props {
   onSubmit?: VoidFunction
 }
 
-export const ProductFrom: React.FC<Props> = ({
+export const ProductForm: React.FC<Props> = ({
   onSubmit: _onSubmit,
   product,
 }) => {
