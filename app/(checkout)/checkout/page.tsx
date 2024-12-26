@@ -11,6 +11,7 @@ import {
 import { useCart } from '@/shared/hooks'
 import { useForm, SubmitHandler } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { checkoutFormSchema } from '@/shared/components/shared/checkout/schema/checkout-form-schema'
 
 const del_price = 9
 
@@ -21,7 +22,7 @@ export default function CheckoutPage() {
   } = useCart()
 
   const form = useForm({
-    resolver: zodResolver(),
+    resolver: zodResolver(checkoutFormSchema),
     defaultValues: {
       name: '',
       email: '',
