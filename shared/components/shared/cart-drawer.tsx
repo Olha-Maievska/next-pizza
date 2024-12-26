@@ -24,6 +24,7 @@ export const CartDrawer: React.FC<React.PropsWithChildren> = ({ children }) => {
     cartState: { cartItems, totalAmount, removeCartItem },
     onClickCountBtn,
   } = useCart()
+  const [redirecting, setRedirecting] = React.useState(false)
 
   return (
     <Sheet>
@@ -79,7 +80,12 @@ export const CartDrawer: React.FC<React.PropsWithChildren> = ({ children }) => {
                   </div>
 
                   <Link href={'/checkout'}>
-                    <Button type="submit" className="w-full h-12 text-base">
+                    <Button
+                      className="w-full h-12 text-base"
+                      type="submit"
+                      onClick={() => setRedirecting(true)}
+                      loading={redirecting}
+                    >
                       Place an order
                       <ArrowRight className="w-5 ml-2" />
                     </Button>

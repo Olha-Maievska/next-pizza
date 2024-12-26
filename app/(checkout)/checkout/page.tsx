@@ -96,7 +96,7 @@ export default function CheckoutPage() {
             <div>
               <CheckoutItemDetails
                 title="Cost of goods"
-                value="105 $"
+                value={`${totalAmount} $`}
                 icon={<Package size={18} className="mr-2 text-gray-400" />}
               />
               <CheckoutItemDetails
