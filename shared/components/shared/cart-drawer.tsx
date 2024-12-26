@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useEffect } from 'react'
+import React from 'react'
 import {
   Sheet,
   SheetContent,
@@ -11,25 +11,16 @@ import {
 } from '../ui/sheet'
 import Link from 'next/link'
 import { Button } from '../ui'
-import { ArrowLeft, ArrowRight } from 'lucide-react'
+import { ArrowRight } from 'lucide-react'
 import { CartDrawerItem } from './cart-drawer-item'
 import { getCartItemDetails } from '@/shared/lib'
-import { useCartStore } from '@/shared/store'
 import { PizzaSize, PizzaType } from '@/shared/consts/pizza'
 import Image from 'next/image'
-import { Title } from './title'
 import { cn } from '@/shared/lib/utils'
+import { useCart } from '@/shared/hooks'
 
 export const CartDrawer: React.FC<React.PropsWithChildren> = ({ children }) => {
-  const fetchCartItems = useCartStore((state) => state.fetchCartItems)
-  const totalAmount = useCartStore((state) => state.totalAmount)
-  const cartItems = useCartStore((state) => state.cartItems)
-  const updateQty = useCartStore((state) => state.updateItemQty)
-  const removeCartItem = useCartStore((state) => state.removeCartItem)
-
-  useEffect(() => {
-    fetchCartItems()
-  }, [fetchCartItems])
+  const { cartItems, totalAmount, updateItemQty, removeCartItem } = useCart()
 
   const onClickCountBtn = (
     id: number,
@@ -37,7 +28,7 @@ export const CartDrawer: React.FC<React.PropsWithChildren> = ({ children }) => {
     type: 'plus' | 'minus'
   ) => {
     const newQty = type === 'plus' ? quantity + 1 : quantity - 1
-    updateQty(id, newQty)
+    updateItemQty(id, newQty)
   }
 
   return (
