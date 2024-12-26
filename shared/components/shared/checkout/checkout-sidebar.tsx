@@ -2,7 +2,7 @@ import React from 'react'
 import { CheckoutContentBlock } from './checkout-content-block'
 import { cn } from '@/shared/lib/utils'
 import { CheckoutItemDetails } from './checkout-item-details'
-import { Button } from '../ui'
+import { Button } from '../../ui'
 import { ArrowRight, Package, Truck } from 'lucide-react'
 
 interface Props {
