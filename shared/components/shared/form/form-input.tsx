@@ -1,6 +1,6 @@
 import React from 'react'
-import { RequiredSymbol } from '../required-symbol'
 import { Input } from '../../ui'
+import { ErrorText, RequiredSymbol } from '../index'
 
 interface Props {
   className?: string
@@ -27,6 +27,8 @@ export const FormInput: React.FC<Props> = ({
       <div className="relative">
         <Input className="h-12 text-md" {...props} />
       </div>
+
+      <ErrorText text="This field is required" />
     </div>
   )
 }
