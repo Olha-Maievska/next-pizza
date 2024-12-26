@@ -2,7 +2,7 @@ import React from 'react'
 import { Input } from '../../ui'
 import { ErrorText, RequiredSymbol } from '../index'
 
-interface Props {
+interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
   className?: string
   name?: string
   label?: string

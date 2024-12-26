@@ -7,6 +7,7 @@ import {
   Container,
   Title,
 } from '@/shared/components/shared'
+import { FormInput } from '@/shared/components/shared/form'
 import { Input } from '@/shared/components/ui'
 import { Textarea } from '@/shared/components/ui/textarea'
 import { PizzaSize, PizzaType } from '@/shared/consts/pizza'
@@ -54,7 +55,7 @@ export default function CheckoutPage() {
 
           <CheckoutContentBlock title="2. Personal details">
             <div className="grid grid-cols-2 gap-5">
-              <Input
+              <FormInput
                 className="text-base"
                 name="firstName"
                 placeholder="First name"
