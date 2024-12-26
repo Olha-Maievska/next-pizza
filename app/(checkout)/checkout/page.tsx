@@ -3,16 +3,17 @@
 import {
   CheckoutCartItem,
   CheckoutContentBlock,
-  CheckoutItemDetails,
+  CheckoutSidebar,
   Container,
   Title,
 } from '@/shared/components/shared'
-import { Button, Input } from '@/shared/components/ui'
+import { Input } from '@/shared/components/ui'
 import { Textarea } from '@/shared/components/ui/textarea'
 import { PizzaSize, PizzaType } from '@/shared/consts/pizza'
 import { useCart } from '@/shared/hooks'
 import { getCartItemDetails } from '@/shared/lib'
-import { ArrowRight, Package, Truck } from 'lucide-react'
+
+const del_price = 9
 
 export default function CheckoutPage() {
   const {
@@ -84,36 +85,7 @@ export default function CheckoutPage() {
           </CheckoutContentBlock>
         </div>
 
-        <div className="w-[450px]">
-          <CheckoutContentBlock className="p-6 sticky top-4">
-            <div className="flex flex-col gap-1">
-              <span className="text-xl">Total amount:</span>
-              <span className="font-extrabold text-[34px]">
-                {totalAmount} $
-              </span>
-            </div>
-
-            <div>
-              <CheckoutItemDetails
-                title="Cost of goods"
-                value={`${totalAmount} $`}
-                icon={<Package size={18} className="mr-2 text-gray-400" />}
-              />
-              <CheckoutItemDetails
-                title="Delivery"
-                value="Free"
-                icon={<Truck size={18} className="mr-2 text-gray-400" />}
-              />
-            </div>
-            <Button
-              type="submit"
-              className="w-full h-14 mt-6 rounded-2xl text-base font-bold"
-            >
-              Proceed to payment
-              <ArrowRight className="ml-2 w-5" />
-            </Button>
-          </CheckoutContentBlock>
-        </div>
+        <CheckoutSidebar totalAmount={totalAmount} deliveryPrice={del_price} />
       </div>
     </Container>
   )
