@@ -1,4 +1,5 @@
 import {
+  CheckoutCartItem,
   CheckoutContentBlock,
   CheckoutItemDetails,
   Container,
@@ -16,7 +17,8 @@ export default function CheckoutPage() {
       <div className="flex gap-10">
         <div className="flex flex-col gap-10 flex-1 mb-20">
           <CheckoutContentBlock title="1. Cart details">
-            1123322
+            <div className="flex flex-col gap-5"></div>
+            <CheckoutCartItem />
           </CheckoutContentBlock>
 
           <CheckoutContentBlock title="2. Personal details">
