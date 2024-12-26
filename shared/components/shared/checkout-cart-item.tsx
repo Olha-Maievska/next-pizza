@@ -25,7 +25,7 @@ export const CheckoutCartItem: React.FC<Props> = ({
   return (
     <div
       className={cn(
-        'flex items-center justify-between',
+        'flex items-center justify-between border-b border-b-gray-150 pb-3',
         {
           'opacity-50 pointer-events-none': disabled,
         },
