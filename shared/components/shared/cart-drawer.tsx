@@ -20,16 +20,10 @@ import { cn } from '@/shared/lib/utils'
 import { useCart } from '@/shared/hooks'
 
 export const CartDrawer: React.FC<React.PropsWithChildren> = ({ children }) => {
-  const { cartItems, totalAmount, updateItemQty, removeCartItem } = useCart()
-
-  const onClickCountBtn = (
-    id: number,
-    quantity: number,
-    type: 'plus' | 'minus'
-  ) => {
-    const newQty = type === 'plus' ? quantity + 1 : quantity - 1
-    updateItemQty(id, newQty)
-  }
+  const {
+    cartState: { cartItems, totalAmount, removeCartItem },
+    onClickCountBtn,
+  } = useCart()
 
   return (
     <Sheet>
@@ -57,15 +51,11 @@ export const CartDrawer: React.FC<React.PropsWithChildren> = ({ children }) => {
                       id={item.id}
                       imageUrl={item.imageUrl}
                       name={item.name}
-                      details={
-                        item.pizzaType && item.size
-                          ? getCartItemDetails(
-                              item.pizzaType as PizzaType,
-                              item.size as PizzaSize,
-                              item.ingredients
-                            )
-                          : ''
-                      }
+                      details={getCartItemDetails(
+                        item.ingredients,
+                        item.pizzaType as PizzaType,
+                        item.size as PizzaSize
+                      )}
                       price={item.price}
                       quantity={item.quantity}
                       disabled={item.disabled}
@@ -88,7 +78,7 @@ export const CartDrawer: React.FC<React.PropsWithChildren> = ({ children }) => {
                     <span className="font-bold text-lg">{totalAmount} $</span>
                   </div>
 
-                  <Link href={'/cart'}>
+                  <Link href={'/checkout'}>
                     <Button type="submit" className="w-full h-12 text-base">
                       Place an order
                       <ArrowRight className="w-5 ml-2" />

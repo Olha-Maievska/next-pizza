@@ -1,3 +1,5 @@
+'use client'
+
 import {
   CheckoutCartItem,
   CheckoutContentBlock,
@@ -7,9 +9,17 @@ import {
 } from '@/shared/components/shared'
 import { Button, Input } from '@/shared/components/ui'
 import { Textarea } from '@/shared/components/ui/textarea'
+import { PizzaSize, PizzaType } from '@/shared/consts/pizza'
+import { useCart } from '@/shared/hooks'
+import { getCartItemDetails } from '@/shared/lib'
 import { ArrowRight, Package, Truck } from 'lucide-react'
 
 export default function CheckoutPage() {
+  const {
+    cartState: { cartItems, totalAmount, removeCartItem },
+    onClickCountBtn,
+  } = useCart()
+
   return (
     <Container className="mt-10">
       <Title text="Checkout" className="font-extrabold mb-8 text-[36px]" />
@@ -17,8 +27,28 @@ export default function CheckoutPage() {
       <div className="flex gap-10">
         <div className="flex flex-col gap-10 flex-1 mb-20">
           <CheckoutContentBlock title="1. Cart details">
-            <div className="flex flex-col gap-5"></div>
-            <CheckoutCartItem />
+            <div className="flex flex-col gap-5">
+              {cartItems.map((item) => (
+                <CheckoutCartItem
+                  key={item.id}
+                  id={item.id}
+                  imageUrl={item.imageUrl}
+                  name={item.name}
+                  price={item.price}
+                  details={getCartItemDetails(
+                    item.ingredients,
+                    item.pizzaType as PizzaType,
+                    item.size as PizzaSize
+                  )}
+                  quantity={item.quantity}
+                  disabled={item.disabled}
+                  onClickCountBtn={(type) =>
+                    onClickCountBtn(item.id, item.quantity, type)
+                  }
+                  onClickRemove={() => removeCartItem(item.id)}
+                />
+              ))}
+            </div>
           </CheckoutContentBlock>
 
           <CheckoutContentBlock title="2. Personal details">
@@ -58,7 +88,9 @@ export default function CheckoutPage() {
           <CheckoutContentBlock className="p-6 sticky top-4">
             <div className="flex flex-col gap-1">
               <span className="text-xl">Total amount:</span>
-              <span className="font-extrabold text-[34px]">105 $</span>
+              <span className="font-extrabold text-[34px]">
+                {totalAmount} $
+              </span>
             </div>
 
             <div>

@@ -32,7 +32,11 @@ export const ChooseProductForm: React.FC<Props> = ({
       </div>
 
       <div className="w-[490px] bg-[#f7f6f5] p-7 pb-10 flex flex-col justify-between">
-        <Title text={name} size="md" className="font-extrabold mb-1" />
+        <Title
+          text={name}
+          size="md"
+          className="font-extrabold mb-1 text-center"
+        />
 
         <Button
           className="text-base h-[55px] px-10 rounded-[18px] w-full mt-10"
