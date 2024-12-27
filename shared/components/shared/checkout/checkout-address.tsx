@@ -2,16 +2,18 @@
 
 import React from 'react'
 import { CheckoutContentBlock } from './checkout-content-block'
-import { FormTextarea } from '../form'
+import { FormInput, FormTextarea } from '../form'
 import { Controller, useFormContext } from 'react-hook-form'
 import { ErrorText } from '../error-text'
 import AddressInput from './address-input'
+import { Skeleton } from '../../ui'
 
 interface Props {
   className?: string
+  loading?: boolean
 }
 
-export const CheckoutAddress: React.FC<Props> = ({ className }) => {
+export const CheckoutAddress: React.FC<Props> = ({ className, loading }) => {
   const { control } = useFormContext()
 
   return (
@@ -20,14 +22,22 @@ export const CheckoutAddress: React.FC<Props> = ({ className }) => {
         <Controller
           name="address"
           control={control}
-          render={({ field, fieldState }) => (
-            <>
-              <AddressInput onChange={field.onChange} />
-              {fieldState.error?.message && (
-                <ErrorText text={fieldState.error.message} />
-              )}
-            </>
-          )}
+          render={({ field, fieldState }) => {
+            if (loading) {
+              return (
+                <FormInput name="address" placeholder="Enter address here" />
+              )
+            } else {
+              return (
+                <>
+                  <AddressInput onChange={field.onChange} />
+                  {fieldState.error?.message && (
+                    <ErrorText text={fieldState.error.message} />
+                  )}
+                </>
+              )
+            }
+          }}
         />
 
         <FormTextarea

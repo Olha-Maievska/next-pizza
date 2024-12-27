@@ -18,7 +18,7 @@ const del_price = 9
 
 export default function CheckoutPage() {
   const {
-    cartState: { cartItems, totalAmount, removeCartItem },
+    cartState: { cartItems, totalAmount, removeCartItem, loading },
     onClickCountBtn,
   } = useCart()
 
@@ -48,16 +48,23 @@ export default function CheckoutPage() {
                 items={cartItems}
                 removeCartItem={removeCartItem}
                 onClickCountBtn={onClickCountBtn}
+                loading={loading}
               />
 
-              <CheckoutPersonalData />
+              <CheckoutPersonalData
+                className={loading ? 'pointer-events-none opacity-40' : ''}
+              />
 
-              <CheckoutAddress />
+              <CheckoutAddress
+                loading={loading}
+                className={loading ? 'pointer-events-none opacity-40' : ''}
+              />
             </div>
 
             <CheckoutSidebar
               totalAmount={totalAmount}
               deliveryPrice={del_price}
+              loading={loading}
             />
           </div>
         </form>
