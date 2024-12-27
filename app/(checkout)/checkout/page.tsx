@@ -11,7 +11,7 @@ import {
   Title,
 } from '@/shared/components/shared'
 import { useCart } from '@/shared/hooks'
-import { useForm, SubmitHandler, FormProvider } from 'react-hook-form'
+import { useForm, FormProvider } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 
 const del_price = 9
