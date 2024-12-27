@@ -14,13 +14,14 @@ import { useCart } from '@/shared/hooks'
 import { useForm, FormProvider } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 
-const del_price = 9
+const del_price = 11
 
 export default function CheckoutPage() {
   const {
     cartState: { cartItems, totalAmount, removeCartItem, loading },
     onClickCountBtn,
   } = useCart()
+  const delAmount = totalAmount > 50 ? 'Free' : del_price
 
   const form = useForm<CheckoutFormType>({
     resolver: zodResolver(checkoutFormSchema),
@@ -63,7 +64,7 @@ export default function CheckoutPage() {
 
             <CheckoutSidebar
               totalAmount={totalAmount}
-              deliveryPrice={del_price}
+              deliveryPrice={delAmount}
               loading={loading}
             />
           </div>

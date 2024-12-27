@@ -8,7 +8,7 @@ import { ArrowRight, Package, Truck } from 'lucide-react'
 interface Props {
   className?: string
   totalAmount: number
-  deliveryPrice: number
+  deliveryPrice: number | string
   loading?: boolean
 }
 
@@ -18,6 +18,10 @@ export const CheckoutSidebar: React.FC<Props> = ({
   deliveryPrice,
   loading,
 }) => {
+  const delPrice = typeof deliveryPrice === 'string' ? 0 : deliveryPrice
+  const delText =
+    typeof deliveryPrice === 'string' ? 'Free' : `${deliveryPrice} $`
+
   return (
     <div className={cn('w-[450px]', className)}>
       <CheckoutContentBlock className="p-6 sticky top-4">
@@ -27,7 +31,7 @@ export const CheckoutSidebar: React.FC<Props> = ({
             <Skeleton className="w-full h-11" />
           ) : (
             <span className="h-11 font-extrabold text-[34px]">
-              {totalAmount + deliveryPrice} $
+              {totalAmount + delPrice} $
             </span>
           )}
         </div>
@@ -42,9 +46,7 @@ export const CheckoutSidebar: React.FC<Props> = ({
           />
           <CheckoutItemDetails
             title="Delivery"
-            value={
-              loading ? <Skeleton className="w-24 h-6" /> : `${deliveryPrice} $`
-            }
+            value={loading ? <Skeleton className="w-24 h-6" /> : delText}
             icon={<Truck size={18} className="mr-2 text-gray-400" />}
           />
         </div>
