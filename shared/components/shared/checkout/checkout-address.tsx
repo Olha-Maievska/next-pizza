@@ -31,7 +31,7 @@ export const CheckoutAddress: React.FC<Props> = ({ className }) => {
         />
 
         <FormTextarea
-          className="text-base mb-2"
+          className="mb-2"
           name="comment"
           rows={5}
           placeholder="Comments (optional)"

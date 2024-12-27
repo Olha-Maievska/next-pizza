@@ -1,5 +1,3 @@
-'use client'
-
 import React from 'react'
 import {
   GeoapifyGeocoderAutocomplete,
@@ -23,6 +21,7 @@ const AddressInput: React.FC<Props> = ({ onChange }) => {
       <GeoapifyGeocoderAutocomplete
         placeholder="Enter address here"
         lang="en"
+        limit={3}
         filterByCountryCode={['cz']}
         skipIcons={true}
         onUserInput={handlePlaceSelect}
