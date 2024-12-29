@@ -30,7 +30,7 @@ export const CheckoutAddress: React.FC<Props> = ({ className, loading }) => {
             } else {
               return (
                 <>
-                  <AddressInput onChange={field.onChange} />
+                  <AddressInput onChange={field.onChange} value={field.value} />
                   {fieldState.error?.message && (
                     <ErrorText text={fieldState.error.message} />
                   )}

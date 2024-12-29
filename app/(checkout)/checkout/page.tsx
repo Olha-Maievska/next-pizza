@@ -13,6 +13,9 @@ import {
 import { useCart } from '@/shared/hooks'
 import { useForm, FormProvider } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { createOrder } from '@/app/actions'
+import toast from 'react-hot-toast'
+import { useState } from 'react'
 
 const del_price = 11
 
@@ -22,6 +25,7 @@ export default function CheckoutPage() {
     onClickCountBtn,
   } = useCart()
   const delAmount = totalAmount > 50 ? 'Free' : del_price
+  const [submitting, setSubmitting] = useState(false)
 
   const form = useForm<CheckoutFormType>({
     resolver: zodResolver(checkoutFormSchema),
@@ -35,7 +39,28 @@ export default function CheckoutPage() {
     },
   })
 
-  const onSubmit = (data: CheckoutFormType) => console.log(data)
+  const onSubmit = async (data: CheckoutFormType) => {
+    try {
+      setSubmitting(true)
+      const url = await createOrder(data)
+
+      toast.success('Order created successfully', {
+        icon: '✅',
+      })
+
+      if (url) {
+        location.href = url
+      }
+    } catch (error) {
+      console.log(error)
+      toast.error('Something went wrong', {
+        icon: '❌',
+      })
+      setSubmitting(false)
+    } finally {
+      setSubmitting(false)
+    }
+  }
 
   return (
     <Container className="mt-10">
@@ -65,7 +90,7 @@ export default function CheckoutPage() {
             <CheckoutSidebar
               totalAmount={totalAmount}
               deliveryPrice={delAmount}
-              loading={loading}
+              loading={loading || submitting}
             />
           </div>
         </form>

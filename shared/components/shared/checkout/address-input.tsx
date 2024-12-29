@@ -7,11 +7,12 @@ import '@geoapify/geocoder-autocomplete/styles/minimal.css'
 
 interface Props {
   onChange?: (value?: string) => void
+  value?: string
 }
 
 const token = '3783088602684536a93197375c3c2f96'
 
-const AddressInput: React.FC<Props> = ({ onChange }) => {
+const AddressInput: React.FC<Props> = ({ onChange, value }) => {
   const handlePlaceSelect = (place: string) => {
     onChange?.(place)
   }
@@ -23,8 +24,10 @@ const AddressInput: React.FC<Props> = ({ onChange }) => {
         lang="en"
         limit={3}
         filterByCountryCode={['cz']}
+        value={value}
         skipIcons={true}
         onUserInput={handlePlaceSelect}
+        placeSelect={(place) => onChange?.(place.properties.formatted)}
       />
     </GeoapifyContext>
   )

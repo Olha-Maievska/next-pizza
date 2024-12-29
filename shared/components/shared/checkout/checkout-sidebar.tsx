@@ -51,6 +51,7 @@ export const CheckoutSidebar: React.FC<Props> = ({
           />
         </div>
         <Button
+          loading={loading}
           type="submit"
           className={cn('w-full h-14 mt-6 rounded-2xl text-base font-bold', {
             'pointer-events-none opacity-50': loading,
