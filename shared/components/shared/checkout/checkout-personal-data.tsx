@@ -25,12 +25,8 @@ export const CheckoutPersonalData: React.FC<Props> = ({ className }) => {
           placeholder="Last name"
         />
         <FormInput className="text-base" name="email" placeholder="Email" />
-        <FormInput
-          className="text-base"
-          name="phone"
-          placeholder="Phone"
-          type="tel"
-        />
+
+        <FormInput className="text-base" name="phone" placeholder="Phone" />
       </div>
     </CheckoutContentBlock>
   )

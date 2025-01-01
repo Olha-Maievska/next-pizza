@@ -17,14 +17,14 @@ import { createOrder } from '@/app/actions'
 import toast from 'react-hot-toast'
 import { useState } from 'react'
 
-const del_price = 11
+export const delivery_price = 11
 
 export default function CheckoutPage() {
   const {
     cartState: { cartItems, totalAmount, removeCartItem, loading },
     onClickCountBtn,
   } = useCart()
-  const delAmount = totalAmount > 50 ? 'Free' : del_price
+  const deliveryAmount = totalAmount > 50 ? 'Free' : delivery_price
   const [submitting, setSubmitting] = useState(false)
 
   const form = useForm<CheckoutFormType>({
@@ -44,7 +44,7 @@ export default function CheckoutPage() {
       setSubmitting(true)
       const url = await createOrder(data)
 
-      toast.success('Order created successfully', {
+      toast.success('Order created successfully! Switching to payment...', {
         icon: '✅',
       })
 
@@ -53,6 +53,7 @@ export default function CheckoutPage() {
       }
     } catch (error) {
       console.log(error)
+      console.error('[CHECKOUT_FORM] Error:', error)
       toast.error('Something went wrong', {
         icon: '❌',
       })
@@ -89,7 +90,7 @@ export default function CheckoutPage() {
 
             <CheckoutSidebar
               totalAmount={totalAmount}
-              deliveryPrice={delAmount}
+              deliveryPrice={deliveryAmount}
               loading={loading || submitting}
             />
           </div>

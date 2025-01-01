@@ -7,7 +7,8 @@ export async function PATCH(
   { params }: { params: { id: string } }
 ) {
   try {
-    const id = Number(params.id)
+    const { id: paramsID } = await params
+    const id = Number(paramsID)
     const data = (await req.json()) as { quantity: number }
     const token = req.cookies.get('token')?.value
 
@@ -47,7 +48,8 @@ export async function DELETE(
   { params }: { params: { id: string } }
 ) {
   try {
-    const id = Number(params.id)
+    const { id: paramsID } = await params
+    const id = Number(paramsID)
     const token = req.cookies.get('token')?.value
 
     if (!token) {

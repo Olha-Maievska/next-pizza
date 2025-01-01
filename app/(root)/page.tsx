@@ -14,7 +14,8 @@ export default async function Home({
 }: {
   searchParams: GetsSearchsParams
 }) {
-  const categories = await findPizzas(searchParams)
+  const search = await searchParams
+  const categories = await findPizzas(search)
 
   return (
     <>

@@ -1,27 +1,25 @@
 import * as React from 'react'
 
-interface Props {
+export interface PayOrderTemplateProps {
   firstName: string
-  orderID: string
+  orderID: number
   totalAmount: number
   paymantLink: string
 }
 
-export const PayOrderTemplate: React.FC<Props> = ({
+export const PayOrderTemplate: React.FC<PayOrderTemplateProps> = ({
   firstName,
   orderID,
   totalAmount,
   paymantLink,
 }) => (
   <div>
-    <h2>Dear {firstName}!</h2>
+    <h4>Dear {firstName}!</h4>
     <p>
-      Pay for the order #{orderID} in the amount of {totalAmount} $ now!
+      Pay for the <b>order #{orderID}</b> in the amount of{' '}
+      <b>{totalAmount} $</b> now! Follow <a href={paymantLink}>this link</a> to
+      pay for your order
     </p>
-    <p>
-      Follow <a href={paymantLink}>this link</a> to pay for your order{' '}
-    </p>
-    <p>Thank you for your understanding</p>
-    <p>Next Pizza</p>
+    <p className="font-bold">Next Pizza team!</p>
   </div>
 )

@@ -1,3 +1,5 @@
+'use client'
+
 import React from 'react'
 import { Input } from '../../ui'
 import { ClearButton, ErrorText, RequiredSymbol } from '../index'
