@@ -15,14 +15,14 @@ export const OrderSuccessTemplate: React.FC<OrderSuccessTemplateProps> = ({
   <div>
     <h4>Thank you for your purchase!</h4>
     <p>
-      Your order <b>#{orderID}</b> in the amount of{totalAmount} $ was paid.
+      Your order <b>#{orderID}</b> in the amount of {totalAmount} $ was paid.
       Items list:
     </p>
 
-    <ul className="border-b border-dashed border-b-neutral-200">
+    <ul>
       {items.map((item) => (
         <li key={item.id}>
-          {item.productItem.product.name} | {item.productItem.price} $ x
+          {item.productItem.product.name} ({item.productItem.price} $) x
           {item.quantity} {item.quantity > 1 ? 'pieces' : 'piece'}
         </li>
       ))}

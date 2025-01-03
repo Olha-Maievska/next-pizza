@@ -105,7 +105,6 @@ export async function createOrder(data: CheckoutFormType) {
         paymantLink: paymentUrl,
       })
     )
-
     return paymentUrl
   } catch (error) {
     console.log('[ORDER_CREATE] Server error', error)

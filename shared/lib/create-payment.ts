@@ -6,7 +6,7 @@ interface Details {
   amount: number
 }
 
-const STRIPE_API_KEY =
+export const STRIPE_API_KEY =
   'sk_test_51Qc93PCQ0eUEbioTdOtz5pvqtSK00TNvkHGUwCFgnhIkTZ6zyRjEvUmktRo7g1ZIuLLqGEt8qRe9ALEWZMgrFzvk00J3A9WcnF'
 
 const stripe = new Stripe(STRIPE_API_KEY)

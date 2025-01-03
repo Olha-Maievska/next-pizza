@@ -1,39 +1,70 @@
 import { prisma } from '@/prisma/prisma-client'
-import { PaymentCallbckData } from '@/shared/@types/stripe'
 import { OrderSuccessTemplate } from '@/shared/components/shared/email-template/order-success'
 import { sendEmail } from '@/shared/lib'
+import { STRIPE_API_KEY } from '@/shared/lib/create-payment'
 import { CartItemDTO } from '@/shared/services/dto/cart-dto'
 import { OrderStatus } from '@prisma/client'
 import { NextRequest, NextResponse } from 'next/server'
+import Stripe from 'stripe'
+
+const STRIPE_WEBHOOK_SECRET = 'whsec_Hl0sTB39eir6bur1Uk6f2DN7PdAaBzFF'
+
+const stripe = new Stripe(STRIPE_API_KEY as string)
 
 export async function POST(req: NextRequest) {
+  const sig = req.headers.get('stripe-signature')
+
+  if (!sig) {
+    return NextResponse.json(
+      { error: 'Missing Stripe signature' },
+      { status: 400 }
+    )
+  }
+
+  let event: Stripe.Event
+
   try {
-    const body = (await req.json()) as PaymentCallbckData
+    const body = await req.text()
+    event = stripe.webhooks.constructEvent(body, sig, STRIPE_WEBHOOK_SECRET)
+  } catch (err) {
+    console.error('Error verifying Stripe webhook signature:', err)
+    return NextResponse.json(
+      { error: `Webhook Error: ${err}` },
+      { status: 400 }
+    )
+  }
 
-    const order = await prisma.order.findFirst({
-      where: {
-        id: Number(body.object.metadata.order_id),
-      },
-    })
+  if (event.type === 'checkout.session.completed') {
+    const session = event.data.object as Stripe.Checkout.Session
 
-    if (!order) {
-      return NextResponse.json({ error: 'Order not found' })
-    }
+    try {
+      const orderId = session.metadata?.order_id
 
-    const isSucceeded = body.object.status === 'succeeded'
+      if (!orderId) {
+        throw new Error('Order ID not found in metadata')
+      }
 
-    await prisma.order.update({
-      where: {
-        id: order.id,
-      },
-      data: {
-        status: isSucceeded ? OrderStatus.SUCCEEDED : OrderStatus.CANCELLED,
-      },
-    })
+      const order = await prisma.order.findFirst({
+        where: {
+          id: parseInt(orderId, 10),
+        },
+      })
 
-    const items = JSON.parse(order.items as string) as CartItemDTO[]
+      if (!order) {
+        throw new Error('Order not found')
+      }
 
-    if (isSucceeded) {
+      await prisma.order.update({
+        where: {
+          id: parseInt(orderId, 10),
+        },
+        data: {
+          status: OrderStatus.SUCCEEDED,
+        },
+      })
+
+      const items = JSON.parse(order.items as string) as CartItemDTO[]
+
       await sendEmail(
         order.email,
         `Next Pizza | Your order successfully paid`,
@@ -43,9 +74,20 @@ export async function POST(req: NextRequest) {
           items,
         })
       )
+    } catch (error) {
+      console.error('Error updating order status:', error)
+      return NextResponse.json(
+        { error: 'Internal Server Error' },
+        { status: 500 }
+      )
     }
-  } catch (error) {
-    console.log('[CHECKOUT Callback] Error:', error)
-    return NextResponse.json({ error: 'Server error' })
   }
+
+  return NextResponse.json({ received: true })
+}
+
+export const config = {
+  api: {
+    bodyParser: false,
+  },
 }
