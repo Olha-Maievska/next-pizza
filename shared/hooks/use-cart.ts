@@ -1,7 +1,5 @@
 import { useEffect } from 'react'
 import { CartState, useCartStore } from '../store'
-import { CreateCartItemValues } from '../services/dto/cart-dto'
-import { CartStateItem } from '../lib/get-cart-details'
 
 interface ReturnType {
   cartState: CartState

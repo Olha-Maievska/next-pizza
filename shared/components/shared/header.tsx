@@ -4,14 +4,13 @@ import { cn } from '@/shared/lib/utils'
 import React, { useEffect } from 'react'
 import { Container } from './container'
 import Image from 'next/image'
-import { Button } from '../ui'
-import { User } from 'lucide-react'
 import Link from 'next/link'
 import { SearchInput } from './search-input'
 import { CartButton } from './cart-button'
 import { useSearchParams, useRouter } from 'next/navigation'
 import toast from 'react-hot-toast'
-import { useSession, signIn } from 'next-auth/react'
+import { ProfileButton } from './profile-button'
+import { AuthModal } from './modals'
 
 interface Props {
   hasSearch?: boolean
@@ -22,7 +21,8 @@ interface Props {
 export const Header: React.FC<Props> = ({ className, hasSearch, hasCart }) => {
   const searchParams = useSearchParams()
   const router = useRouter()
-  const { data: session } = useSession()
+
+  const [openAuthModal, setOpenAuthModal] = React.useState(false)
 
   useEffect(() => {
     if (searchParams.has('paid')) {
@@ -55,18 +55,11 @@ export const Header: React.FC<Props> = ({ className, hasSearch, hasCart }) => {
         )}
 
         <div className="flex items-center gap-3">
-          <Button
-            variant={'outline'}
-            className="flex items-center gap-1"
-            onClick={() =>
-              signIn('github', {
-                callbackUrl: '/',
-                redirect: true,
-              })
-            }
-          >
-            Log in <User size={16} />
-          </Button>
+          <AuthModal
+            open={openAuthModal}
+            onClose={() => setOpenAuthModal(false)}
+          />
+          <ProfileButton onClickSignIn={() => setOpenAuthModal(true)} />
 
           {hasCart && (
             <div>
