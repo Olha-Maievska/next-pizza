@@ -44,7 +44,7 @@ export const ChooseProductForm: React.FC<Props> = ({
           loading={loading}
         >
           <Plus className="mr-1" size={16} />
-          Add to cart for {price} $
+          Add to cart for ${price}
         </Button>
       </div>
     </div>

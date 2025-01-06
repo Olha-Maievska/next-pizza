@@ -19,8 +19,7 @@ export const CheckoutSidebar: React.FC<Props> = ({
   loading,
 }) => {
   const delPrice = typeof deliveryPrice === 'string' ? 0 : deliveryPrice
-  const delText =
-    typeof deliveryPrice === 'string' ? 'Free' : `${deliveryPrice} $`
+  const delText = !delPrice ? 'Free' : `$${deliveryPrice} `
 
   return (
     <div className={cn('w-[450px]', className)}>
@@ -31,7 +30,7 @@ export const CheckoutSidebar: React.FC<Props> = ({
             <Skeleton className="w-full h-11" />
           ) : (
             <span className="h-11 font-extrabold text-[34px]">
-              {totalAmount + delPrice} $
+              ${totalAmount + delPrice}
             </span>
           )}
         </div>
@@ -40,7 +39,7 @@ export const CheckoutSidebar: React.FC<Props> = ({
           <CheckoutItemDetails
             title="Cost of goods"
             value={
-              loading ? <Skeleton className="w-24 h-6" /> : `${totalAmount} $`
+              loading ? <Skeleton className="w-24 h-6" /> : `$${totalAmount}`
             }
             icon={<Package size={18} className="mr-2 text-gray-400" />}
           />
@@ -49,6 +48,9 @@ export const CheckoutSidebar: React.FC<Props> = ({
             value={loading ? <Skeleton className="w-24 h-6" /> : delText}
             icon={<Truck size={18} className="mr-2 text-gray-400" />}
           />
+          <div className="text-sm text-gray-500 text-right">
+            free shipping over $30
+          </div>
         </div>
         <Button
           loading={loading}

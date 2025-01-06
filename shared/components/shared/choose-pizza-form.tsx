@@ -102,7 +102,7 @@ export const ChoosePizzaForm: React.FC<Props> = ({
           loading={loading}
         >
           <Plus className="mr-1" size={16} />
-          Add to cart for {totalPrice} $
+          Add to cart for ${totalPrice}
         </Button>
       </div>
     </div>

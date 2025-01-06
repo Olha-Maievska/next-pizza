@@ -6,7 +6,7 @@ import { cn } from '@/shared/lib/utils'
 import { ProductCard } from './product-card'
 import { useIntersection } from 'react-use'
 import { useCategoryStore } from '@/shared/store/category'
-import { ProductWithRelations } from '@/shared/@types/prizma'
+import { ProductWithRelations } from '@/@types/prizma'
 
 interface Props {
   className?: string

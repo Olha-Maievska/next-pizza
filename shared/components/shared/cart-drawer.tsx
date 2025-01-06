@@ -76,7 +76,7 @@ export const CartDrawer: React.FC<React.PropsWithChildren> = ({ children }) => {
                       Subtotal:
                       <div className="flex-1 border-b border-b-neutral-200 border-dashed relative -top-1 mx-2"></div>
                     </span>
-                    <span className="font-bold text-lg">{totalAmount} $</span>
+                    <span className="font-bold text-lg">${totalAmount}</span>
                   </div>
 
                   <Link href={'/checkout'}>

@@ -1,16 +1,14 @@
 'use client'
 
-import React, { useRef } from 'react'
+import React from 'react'
 import { CheckoutContentBlock } from './checkout-content-block'
 import { FormInput } from '../form'
+
 interface Props {
   className?: string
 }
 
 export const CheckoutPersonalData: React.FC<Props> = ({ className }) => {
-  const ref = useRef(null)
-  const inputRef = useRef(null)
-
   return (
     <CheckoutContentBlock className={className} title="2. Personal details">
       <div className="grid grid-cols-2 gap-5">

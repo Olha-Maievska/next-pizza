@@ -1,11 +1,11 @@
 'use client'
 
-import { ProductWithRelations } from '@/shared/@types/prizma'
 import { useCartStore } from '@/shared/store'
 import React from 'react'
 import toast from 'react-hot-toast'
 import { ChoosePizzaForm } from './choose-pizza-form'
 import { ChooseProductForm } from './choose-product-form'
+import { ProductWithRelations } from '@/@types/prizma'
 
 interface Props {
   product: ProductWithRelations
