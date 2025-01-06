@@ -1,16 +1,12 @@
-import React from 'react'
+import { InfoBlock } from '@/shared/components/shared'
 
-interface Props {
-  className?: string
-}
-
-export const UnauthtorizedPage: React.FC<Props> = ({ className }) => {
+export default function unauthtorizedPage() {
   return (
     <div className="flex flex-col items-center justify-center mt-40">
       <InfoBlock
-        title="Доступ запрещён"
-        text="Данную страницу могут просматривать только авторизованные пользователи"
-        imageUrl="/assets/images/lock.png"
+        title="Access denied"
+        text="This page can only be viewed by authorized users."
+        imageUrl="/images/lock.png"
       />
     </div>
   )

@@ -12,7 +12,7 @@ export const formLoginSchema = z.object({
 export const formRegisterSchema = formLoginSchema
   .merge(
     z.object({
-      fullName: z
+      fullname: z
         .string()
         .min(2, { message: 'Fullname must be at least 2 characters' }),
       confirmPassword: passwordSchema,

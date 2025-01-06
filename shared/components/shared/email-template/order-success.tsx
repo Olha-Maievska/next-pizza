@@ -1,13 +1,13 @@
 import { CartItemDTO } from '@/shared/services/dto/cart-dto'
 import * as React from 'react'
 
-export interface OrderSuccessTemplateProps {
+export interface Props {
   orderID: number
   totalAmount: number
   items: CartItemDTO[]
 }
 
-export const OrderSuccessTemplate: React.FC<OrderSuccessTemplateProps> = ({
+export const OrderSuccessTemplate: React.FC<Props> = ({
   orderID,
   totalAmount,
   items,

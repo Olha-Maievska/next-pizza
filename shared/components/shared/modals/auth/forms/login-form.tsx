@@ -51,12 +51,18 @@ export const LoginForm: React.FC<Props> = ({ onClose }) => {
         onSubmit={form.handleSubmit(onSubmit)}
       >
         <div className="flex justify-between items-center">
-          <div className="mr-2">
+          <div className="mr-6">
             <Title text="Sign in" size="md" className="font-bold" />
             <p className="text-gray-400">
               Enter your email address to log into your account
             </p>
           </div>
+          <img
+            src="/images/phone-icon.png"
+            alt="phone-icon"
+            width={60}
+            height={60}
+          />
         </div>
 
         <FormInput name="email" label="Email" required />

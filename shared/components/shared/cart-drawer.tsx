@@ -98,7 +98,7 @@ export const CartDrawer: React.FC<React.PropsWithChildren> = ({ children }) => {
           {!totalAmount && (
             <div className="w-72 mx-auto text-center">
               <Image
-                src="/empty-cart.svg"
+                src="/images/empty-cart.svg"
                 alt="empty cart"
                 width={250}
                 height={250}

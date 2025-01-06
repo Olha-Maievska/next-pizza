@@ -1,13 +1,13 @@
 import * as React from 'react'
 
-export interface PayOrderTemplateProps {
+export interface Props {
   firstName: string
   orderID: number
   totalAmount: number
   paymantLink: string
 }
 
-export const PayOrderTemplate: React.FC<PayOrderTemplateProps> = ({
+export const PayOrderTemplate: React.FC<Props> = ({
   firstName,
   orderID,
   totalAmount,
