@@ -25,13 +25,25 @@ export const Header: React.FC<Props> = ({ className, hasSearch, hasCart }) => {
   const [openAuthModal, setOpenAuthModal] = React.useState(false)
 
   useEffect(() => {
+    let message = ''
+
     if (searchParams.has('paid')) {
+      message = 'The order has been paid successfully!'
+    }
+
+    if (searchParams.has('verified')) {
+      message = 'Email verified successfully!'
+    }
+
+    if (message) {
       setTimeout(() => {
-        toast.success('The order has been paid successfully!')
-        router.push('/')
+        router.replace('/')
+        toast.success(message, {
+          duration: 3000,
+        })
       }, 500)
     }
-  }, [])
+  }, [router, searchParams])
 
   return (
     <header className={cn('border-b', className)}>
