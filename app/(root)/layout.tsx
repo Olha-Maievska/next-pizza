@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { Header } from '@/shared/components/shared/header'
 import { Suspense } from 'react'
+import { Footer } from '@/shared/components/shared'
 
 export const metadata: Metadata = {
   title: 'Next Pizza | Home',
@@ -14,12 +15,15 @@ export default function HomeLayout({
   modal: React.ReactNode
 }>) {
   return (
-    <main className="min-h-screen">
+    <div className="min-h-screen grid grid-rows-[auto_1fr_auto]">
       <Suspense>
         <Header hasCart hasSearch />
       </Suspense>
-      {children}
-      {modal}
-    </main>
+      <main>
+        {children}
+        {modal}
+      </main>
+      <Footer />
+    </div>
   )
 }

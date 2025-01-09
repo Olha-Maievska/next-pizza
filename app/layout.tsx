@@ -1,6 +1,7 @@
 import { Nunito } from 'next/font/google'
 import { Providers } from '@/shared/components/shared'
 import './globals.css'
+import { cn } from '@/shared/lib/utils'
 
 const nunito = Nunito({
   subsets: ['latin'],
