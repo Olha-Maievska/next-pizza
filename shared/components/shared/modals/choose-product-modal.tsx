@@ -5,7 +5,7 @@ import { Dialog } from '../../ui'
 import { cn } from '@/shared/lib/utils'
 import { DialogContent, DialogTitle } from '@/shared/components/ui/dialog'
 import { useRouter } from 'next/navigation'
-import { ProductWithRelations } from '@/shared/@types/prizma'
+import { ProductWithRelations } from '@/@types/prizma'
 import { ProductForm } from '../product-form'
 
 interface Props {

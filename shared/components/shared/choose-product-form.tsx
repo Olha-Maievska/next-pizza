@@ -8,6 +8,8 @@ interface Props {
   className?: string
   imageUrl: string
   name: string
+  description: string
+  weight: string | null
   price: number
   loading?: boolean
   onSubmit?: VoidFunction
@@ -18,6 +20,8 @@ export const ChooseProductForm: React.FC<Props> = ({
   name,
   price,
   imageUrl,
+  description,
+  weight,
   loading,
   onSubmit,
 }) => {
@@ -32,11 +36,13 @@ export const ChooseProductForm: React.FC<Props> = ({
       </div>
 
       <div className="w-[490px] bg-[#f7f6f5] p-7 pb-10 flex flex-col justify-between">
-        <Title
-          text={name}
-          size="md"
-          className="font-extrabold mb-1 text-center"
-        />
+        <div>
+          <Title text={name} size="md" className="font-extrabold mb-1" />
+
+          <p className="text-gray-600 mb-5">{weight}</p>
+
+          <p className="text-gray-400">{description}</p>
+        </div>
 
         <Button
           className="text-base h-[55px] px-10 rounded-[18px] w-full mt-10"

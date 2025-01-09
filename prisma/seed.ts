@@ -18,7 +18,7 @@ const generateProductItem = ({
 }) => {
   return {
     productId,
-    price: randomDecimalNumber(5, 20),
+    price: randomDecimalNumber(3, 20),
     pizzaType,
     size,
   } as Prisma.ProductItemUncheckedCreateInput
@@ -60,6 +60,8 @@ async function up() {
     data: {
       name: 'Pepperoni fresh',
       imageUrl: '/images/products/pizzas/pepperoni.webp',
+      description:
+        'Spicy pepperoni, extra mozzarella, tomatoes, signature tomato sauce.',
       categoryId: 1,
       ingredients: {
         connect: ingredients.slice(0, 5),
@@ -71,6 +73,8 @@ async function up() {
     data: {
       name: 'Cheese',
       imageUrl: '/images/products/pizzas/cheese.webp',
+      description:
+        'Mozzarella, cheddar and parmesan cheeses, signature alfredo sauce.',
       categoryId: 1,
       ingredients: {
         connect: ingredients.slice(5, 10),
@@ -82,9 +86,48 @@ async function up() {
     data: {
       name: 'Chorizo ​​fresh',
       imageUrl: '/images/products/pizzas/chorizo.webp',
+      description:
+        'Spicy chorizo ​​sausages, sweet peppers, mozzarella, signature tomato sauce.',
       categoryId: 1,
       ingredients: {
         connect: ingredients.slice(10, 17),
+      },
+    },
+  })
+  const pizza4 = await prisma.product.create({
+    data: {
+      name: 'Ham and mushrooms',
+      imageUrl: '/images/products/pizzas/ham-mushrooms.avif',
+      description:
+        'Ham, champignons, extra mozzarella, signature tomato sauce.',
+      categoryId: 1,
+      ingredients: {
+        connect: ingredients.slice(3, 8),
+      },
+    },
+  })
+
+  const pizza5 = await prisma.product.create({
+    data: {
+      name: 'Burger-pizza',
+      imageUrl: '/images/products/pizzas/burger-pizza.avif',
+      description:
+        'Ham, pickles, tomatoes, red onion, garlic, burger sauce, mozzarella, signature tomato sauce.',
+      categoryId: 1,
+      ingredients: {
+        connect: ingredients.slice(9, 14),
+      },
+    },
+  })
+
+  const pizza6 = await prisma.product.create({
+    data: {
+      name: 'Hawaiian',
+      imageUrl: '/images/products/pizzas/hawaiian.avif',
+      description: 'Chicken, pineapple, mozzarella, signature alfredo sauce',
+      categoryId: 1,
+      ingredients: {
+        connect: ingredients.slice(2, 8),
       },
     },
   })
@@ -93,7 +136,8 @@ async function up() {
     data: [
       // Pepperoni fresh
       generateProductItem({ productId: pizza1.id, pizzaType: 1, size: 20 }),
-      generateProductItem({ productId: pizza1.id, pizzaType: 2, size: 30 }),
+      generateProductItem({ productId: pizza1.id, pizzaType: 1, size: 30 }),
+      generateProductItem({ productId: pizza1.id, pizzaType: 1, size: 40 }),
       generateProductItem({ productId: pizza1.id, pizzaType: 2, size: 40 }),
 
       // Cheese
@@ -106,8 +150,27 @@ async function up() {
 
       // Chorizo ​​fresh
       generateProductItem({ productId: pizza3.id, pizzaType: 1, size: 20 }),
+      generateProductItem({ productId: pizza3.id, pizzaType: 2, size: 20 }),
       generateProductItem({ productId: pizza3.id, pizzaType: 2, size: 30 }),
-      generateProductItem({ productId: pizza3.id, pizzaType: 2, size: 40 }),
+      generateProductItem({ productId: pizza3.id, pizzaType: 2, size: 20 }),
+
+      // Ham and mushrooms
+      generateProductItem({ productId: pizza4.id, pizzaType: 1, size: 20 }),
+      generateProductItem({ productId: pizza4.id, pizzaType: 1, size: 30 }),
+      generateProductItem({ productId: pizza4.id, pizzaType: 1, size: 40 }),
+
+      // Burger-pizza
+      generateProductItem({ productId: pizza5.id, pizzaType: 2, size: 20 }),
+      generateProductItem({ productId: pizza5.id, pizzaType: 2, size: 30 }),
+      generateProductItem({ productId: pizza5.id, pizzaType: 2, size: 40 }),
+
+      // Hawaiian
+      generateProductItem({ productId: pizza6.id, pizzaType: 1, size: 20 }),
+      generateProductItem({ productId: pizza6.id, pizzaType: 1, size: 30 }),
+      generateProductItem({ productId: pizza6.id, pizzaType: 1, size: 40 }),
+      generateProductItem({ productId: pizza6.id, pizzaType: 2, size: 20 }),
+      generateProductItem({ productId: pizza6.id, pizzaType: 2, size: 30 }),
+      generateProductItem({ productId: pizza6.id, pizzaType: 2, size: 40 }),
 
       // Rest products
       generateProductItem({ productId: 1 }),
@@ -155,6 +218,98 @@ async function up() {
         connect: [{ id: 1 }, { id: 2 }, { id: 3 }],
       },
     },
+  })
+
+  await prisma.story.createMany({
+    data: [
+      {
+        previewImageUrl: '/images/stories/pizza-fest.jpg',
+      },
+      {
+        previewImageUrl: '/images/stories/smile.jpg',
+      },
+      {
+        previewImageUrl: '/images/stories/especially-for-you.webp',
+      },
+      {
+        previewImageUrl: '/images/stories/facts-about-the-month.jpg',
+      },
+      {
+        previewImageUrl: '/images/stories/coffe-with-friends.jpg',
+      },
+      {
+        previewImageUrl: '/images/stories/no-meat.webp',
+      },
+    ],
+  })
+
+  await prisma.storyItem.createMany({
+    data: [
+      {
+        storyId: 85,
+        sourceUrl: '/images/stories/slaces-papperoni.webp',
+      },
+      {
+        storyId: 85,
+        sourceUrl: '/images/stories/pesto.webp',
+      },
+      {
+        storyId: 86,
+        sourceUrl: '/images/stories/smile-2.jpg',
+      },
+      {
+        storyId: 86,
+        sourceUrl: '/images/stories/smile-3.webp',
+      },
+      {
+        storyId: 87,
+        sourceUrl: '/images/stories/especially-for-you-2.jpg',
+      },
+      {
+        storyId: 87,
+        sourceUrl: '/images/stories/especially-for-you-3.jpeg',
+      },
+      {
+        storyId: 87,
+        sourceUrl: '/images/stories/cold.jpg',
+      },
+      {
+        storyId: 88,
+        sourceUrl: '/images/stories/food-facts.png',
+      },
+      {
+        storyId: 88,
+        sourceUrl: '/images/stories/facts-about-pizza-1.png',
+      },
+      {
+        storyId: 88,
+        sourceUrl: '/images/stories/pizza-knowledge.png',
+      },
+      {
+        storyId: 88,
+        sourceUrl: '/images/stories/national-pizza-day.png',
+      },
+      {
+        storyId: 89,
+        sourceUrl: '/images/stories/coffe-with-friends-2.jpg',
+      },
+      {
+        storyId: 89,
+        sourceUrl: '/images/stories/coffe-with-friends-3.jpg',
+      },
+      {
+        storyId: 89,
+        sourceUrl: '/images/stories/coffe-with-friends-4.webp',
+      },
+      {
+        storyId: 90,
+        sourceUrl: '/images/stories/French-Fries.jpg',
+      },
+      {
+        storyId: 90,
+        sourceUrl: '/images/stories/white-pizza.jpg',
+      },
+    ],
   })
 }
 

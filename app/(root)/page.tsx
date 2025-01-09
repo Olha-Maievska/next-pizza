@@ -4,6 +4,7 @@ import {
   TopBar,
   Filters,
   ProductGroupList,
+  Stories,
 } from '@/shared/components/shared'
 import { Suspense } from 'react'
 import { findPizzas } from '@/shared/lib'
@@ -23,6 +24,8 @@ export default async function Home({
         <Title text="All pizzas" size="md" className="font-extrabold" />
       </Container>
       <TopBar categories={categories} />
+
+      <Stories />
 
       <Container className="mt-10 pb-14">
         <div className="flex gap-[80px]">

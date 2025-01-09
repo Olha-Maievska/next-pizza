@@ -6,7 +6,6 @@ import { FormInput, FormTextarea } from '../form'
 import { Controller, useFormContext } from 'react-hook-form'
 import { ErrorText } from '../error-text'
 import AddressInput from './address-input'
-import { Skeleton } from '../../ui'
 
 interface Props {
   className?: string

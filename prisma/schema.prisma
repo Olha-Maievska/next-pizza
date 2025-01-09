@@ -40,6 +40,8 @@ model Product {
 
   name String
   imageUrl String
+  description String
+  weight String?
 
   category Category @relation(fields: [categoryId], references: [id])
   categoryId Int
@@ -145,6 +147,25 @@ model VerificationCode {
 
   code String
 
+  createdAt DateTime @default(now())
+}
+
+model Story {
+  id Int @id @default(autoincrement())
+  previewImageUrl String
+
+  items StoryItem[]
+
+  createdAt DateTime @default(now())
+}
+
+model StoryItem {
+  id Int @id @default(autoincrement())
+
+  storyId Int
+  story Story @relation(fields: [storyId], references: [id])
+
+  sourceUrl String
   createdAt DateTime @default(now())
 }
 

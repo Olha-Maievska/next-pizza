@@ -18,6 +18,7 @@ interface Props {
   imageUrl: string
   name: string
   loading?: boolean
+  description: string
   ingredients: Ingredient[]
   items: ProductItem[]
   onSubmit: (itemID: number, ingredients: number[]) => void
@@ -29,6 +30,7 @@ export const ChoosePizzaForm: React.FC<Props> = ({
   items,
   imageUrl,
   ingredients,
+  description,
   onSubmit,
   loading,
 }) => {
@@ -65,7 +67,9 @@ export const ChoosePizzaForm: React.FC<Props> = ({
       <div className="w-[490px] bg-[#f7f6f5] p-7">
         <Title text={name} size="md" className="font-extrabold mb-1" />
 
-        <p className="text-gray-400">{textDetail}</p>
+        <p className="text-gray-600">{textDetail}</p>
+
+        <p className="text-sm text-gray-400">{description}</p>
 
         <div className="flex flex-col gap-4 mt-5">
           <GroupVariant
