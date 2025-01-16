@@ -51,7 +51,7 @@ export const CheckboxFiltersGroup: React.FC<Props> = ({
           .map((_, i) => (
             <Skeleton key={i} className="mb-4 h-6 rounded-[8px]" />
           ))}
-        <Skeleton className="w-28 mb-4 h-6 rounded-[8px]" />
+        {limit >= 5 && <Skeleton className="w-28 mb-4 h-6 rounded-[8px]" />}
       </div>
     )
   }

@@ -4,12 +4,14 @@ import React from 'react'
 import * as SliderPrimitive from '@radix-ui/react-slider'
 
 import { cn } from '@/shared/lib/utils'
+import { Skeleton } from '../ui'
 
 type SliderProps = {
   className?: string
   min: number
   max: number
   step: number
+  loading: boolean
   formatLabel?: (value: number) => string
   value?: number[] | readonly number[]
   onValueChange?: (values: number[]) => void
@@ -24,6 +26,7 @@ const RangeSlider = React.forwardRef(
       step,
       formatLabel,
       value,
+      loading,
       onValueChange,
       ...props
     }: SliderProps,
@@ -41,6 +44,10 @@ const RangeSlider = React.forwardRef(
       if (onValueChange) {
         onValueChange(newValues)
       }
+    }
+
+    if (loading) {
+      return <Skeleton className="h-1 rounded-[1px]" />
     }
 
     return (

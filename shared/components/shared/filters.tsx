@@ -2,18 +2,20 @@
 
 import React from 'react'
 import { Title } from './title'
-import { Input } from '../ui'
+import { Input, Skeleton } from '../ui'
 import { RangeSlider } from './range-slider'
 import { CheckboxFiltersGroup } from './checkbox-filters-group'
 import { useFilters, useIngredients, useQueryFilters } from '@/shared/hooks'
+import { useCartStore } from '@/shared/store'
 
 interface Props {
   className?: string
 }
 
 export const Filters: React.FC<Props> = ({ className }) => {
-  const { ingredients, loading } = useIngredients()
+  const { ingredients } = useIngredients()
   const filters = useFilters()
+  const loading = useCartStore((state) => state.loading)
 
   useQueryFilters(filters)
 
@@ -36,6 +38,8 @@ export const Filters: React.FC<Props> = ({ className }) => {
         title="Type of dough"
         name="sizes"
         selected={filters.pizzaTypes}
+        loading={loading}
+        limit={2}
         items={[
           {
             text: 'Thin',
@@ -54,6 +58,8 @@ export const Filters: React.FC<Props> = ({ className }) => {
         title="Sizes"
         name="sizes"
         selected={filters.sizes}
+        loading={loading}
+        limit={3}
         items={[
           {
             text: '20 sm',
@@ -73,29 +79,34 @@ export const Filters: React.FC<Props> = ({ className }) => {
 
       <div className="mt-5 border-y border-y-neutral-100 py-6 pb-7">
         <h5 className="font-bold mb-3">Price from and to:</h5>
-        <div className="flex gap-3 mb-5">
-          <Input
-            type="number"
-            placeholder="0"
-            min={0}
-            max={50}
-            value={String(filters.prices.priceFrom)}
-            onChange={(e) =>
-              filters.setPrices('priceFrom', Number(e.target.value))
-            }
-          />
 
-          <Input
-            type="number"
-            placeholder="50"
-            min={10}
-            max={50}
-            value={String(filters.prices.priceTo)}
-            onChange={(e) =>
-              filters.setPrices('priceTo', Number(e.target.value))
-            }
-          />
-        </div>
+        {loading ? (
+          <Skeleton className="mb-5 h-[36px] rounded-[8px]" />
+        ) : (
+          <div className="flex gap-3 mb-5">
+            <Input
+              type="number"
+              placeholder="0"
+              min={0}
+              max={50}
+              value={String(filters.prices.priceFrom)}
+              onChange={(e) =>
+                filters.setPrices('priceFrom', Number(e.target.value))
+              }
+            />
+
+            <Input
+              type="number"
+              placeholder="50"
+              min={10}
+              max={50}
+              value={String(filters.prices.priceTo)}
+              onChange={(e) =>
+                filters.setPrices('priceTo', Number(e.target.value))
+              }
+            />
+          </div>
+        )}
 
         <RangeSlider
           min={0}
@@ -103,6 +114,7 @@ export const Filters: React.FC<Props> = ({ className }) => {
           step={5}
           value={[filters.prices.priceFrom || 0, filters.prices.priceTo || 50]}
           onValueChange={updatePrices}
+          loading={loading}
         />
       </div>
 
