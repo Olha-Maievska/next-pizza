@@ -26,6 +26,18 @@ export const Stories: React.FC<Props> = ({ className }) => {
     getStories()
   }, [])
 
+  useEffect(() => {
+    if (open) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = 'auto'
+    }
+
+    return () => {
+      document.body.style.overflow = 'auto'
+    }
+  }, [open])
+
   function onClickStory(story: IStory) {
     setSelectedStory(story)
 
@@ -53,7 +65,7 @@ export const Stories: React.FC<Props> = ({ className }) => {
         {stories.map((story) => (
           <img
             key={story.id}
-            className="w-[200px] h-[250px] rounded-md cursor-pointer object-cover"
+            className="w-[200px] h-[250px] rounded-md cursor-pointer bg-gray-200"
             src={story.previewImageUrl}
             alt=""
             onClick={() => onClickStory(story)}
@@ -79,7 +91,9 @@ export const Stories: React.FC<Props> = ({ className }) => {
                 defaultInterval={3000}
                 width={520}
                 height={800}
-                onAllStoriesEnd={() => setOpen(false)}
+                onAllStoriesEnd={() => {
+                  setOpen(false)
+                }}
               />
             </div>
           </div>

@@ -1,4 +1,3 @@
-import { pizzaSizes } from './../../consts/pizza'
 import {
   Cart,
   CartItem,

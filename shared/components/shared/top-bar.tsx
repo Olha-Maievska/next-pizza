@@ -2,6 +2,7 @@ import { cn } from '@/shared/lib/utils'
 import React from 'react'
 import { Container, Categories, SortPopap } from '@/shared/components/shared'
 import { Category } from '@prisma/client'
+import { Sorting } from '@/shared/hooks/use-filters'
 
 interface Props {
   className?: string

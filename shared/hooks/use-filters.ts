@@ -8,9 +8,10 @@ interface PriceProps {
 }
 
 interface QueryFilters extends PriceProps {
-  sizes: string
-  pizzaTypes: string
-  ingredients: string
+  sizes?: string
+  pizzaTypes?: string
+  ingredients?: string
+  sortBy?: Sorting
 }
 
 export interface Filters {
@@ -18,13 +19,17 @@ export interface Filters {
   pizzaTypes: Set<string>
   selectedIngredients: Set<string>
   prices: PriceProps
+  sortBy: Sorting
 }
+
+export type Sorting = 'asc' | 'desc'
 
 interface ReturnProps extends Filters {
   setPrices: (name: keyof PriceProps, value: number) => void
   setIngredients: (id: string) => void
   setSizes: (id: string) => void
   setPizzaTypes: (id: string) => void
+  setSortBy: (sorting: Sorting) => void
 }
 
 export const useFilters = (): ReturnProps => {
@@ -34,7 +39,7 @@ export const useFilters = (): ReturnProps => {
   >
 
   const [selectedIngredients, { toggle: setIngredients }] = useSet(
-    new Set<string>(searchParams.get('ingredients')?.split(','))
+    new Set<string>(searchParams.get('ingredients')?.split(',')) || []
   )
 
   const [prices, setPrices] = useState<PriceProps>({
@@ -55,6 +60,10 @@ export const useFilters = (): ReturnProps => {
     )
   )
 
+  const [sortBy, setSortBy] = useState<Sorting>(
+    (searchParams.get('sortBy') as Sorting) || 'popular'
+  )
+
   const updatePrices = (name: keyof PriceProps, value: number) => {
     setPrices((prev) => ({ ...prev, [name]: value }))
   }
@@ -65,11 +74,13 @@ export const useFilters = (): ReturnProps => {
       pizzaTypes,
       selectedIngredients,
       prices,
+      sortBy,
+      setSortBy,
       setPrices: updatePrices,
       setPizzaTypes,
       setSizes,
       setIngredients,
     }),
-    [sizes, pizzaTypes, selectedIngredients, prices]
+    [sizes, pizzaTypes, selectedIngredients, prices, sortBy]
   )
 }

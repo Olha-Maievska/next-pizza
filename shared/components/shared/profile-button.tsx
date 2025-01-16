@@ -2,8 +2,8 @@ import { useSession } from 'next-auth/react'
 import React from 'react'
 import { Button } from '../ui'
 import { CircleUser, User } from 'lucide-react'
-import { ClearButton } from './clear-button'
 import Link from 'next/link'
+import { useCartStore } from '@/shared/store'
 
 interface Props {
   className?: string
@@ -14,12 +14,15 @@ export const ProfileButton: React.FC<Props> = ({
   className,
   onClickSignIn,
 }) => {
+  const loading = useCartStore((state) => state.loading)
+
   const { data: session } = useSession()
   return (
     <div className={className}>
       {!session ? (
         <Button
-          className="flex items-center gap-1"
+          loading={loading}
+          className="flex items-center gap-1 w-[90px]"
           variant={'outline'}
           onClick={onClickSignIn}
         >
@@ -28,7 +31,11 @@ export const ProfileButton: React.FC<Props> = ({
         </Button>
       ) : (
         <Link href={'/profile'}>
-          <Button className="flex items-center gap-2" variant={'secondary'}>
+          <Button
+            className="flex items-center gap-2 w-[90px]"
+            variant={'secondary'}
+            loading={loading}
+          >
             <CircleUser size={18} />
             Profile
           </Button>

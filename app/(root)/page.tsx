@@ -6,7 +6,7 @@ import {
   ProductGroupList,
   Stories,
 } from '@/shared/components/shared'
-import { Suspense } from 'react'
+import React, { Suspense } from 'react'
 import { findPizzas } from '@/shared/lib'
 import { GetsSearchsParams } from '@/shared/lib/find-pizzas'
 
@@ -15,15 +15,19 @@ export default async function Home({
 }: {
   searchParams: GetsSearchsParams
 }) {
-  const search = await searchParams
-  const categories = await findPizzas(search)
+  const params = await searchParams
+  const categories = await findPizzas(params)
 
   return (
     <>
       <Container className="mt-10">
         <Title text="All pizzas" size="md" className="font-extrabold" />
       </Container>
-      <TopBar categories={categories} />
+      <TopBar
+        categories={categories.filter(
+          (category) => category.products.length > 0
+        )}
+      />
 
       <Stories />
 
@@ -45,6 +49,7 @@ export default async function Home({
                       title={category.name}
                       categoryId={category.id}
                       products={category.products}
+                      className="first:pt-0 pt-[100px]"
                     />
                   )
               )}

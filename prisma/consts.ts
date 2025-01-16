@@ -14,12 +14,12 @@ export const ingredients = [
   },
   {
     name: 'Creamy mozzarella',
-    price: 4,
+    price: 2,
     imageUrl: '/images/ingredients/сreamy-mozzarella.png',
   },
   {
     name: 'Cheddar and parmesan cheeses',
-    price: 4,
+    price: 3,
     imageUrl: '/images/ingredients/сheddar-parmesan.png',
   },
   {
@@ -34,32 +34,32 @@ export const ingredients = [
   },
   {
     name: 'Champignons',
-    price: 3,
+    price: 2,
     imageUrl: '/images/ingredients/champignons.png',
   },
   {
     name: 'Ham',
-    price: 4,
+    price: 3,
     imageUrl: '/images/ingredients/ham.png',
   },
   {
     name: 'Spicy Pepperoni',
-    price: 5,
+    price: 2,
     imageUrl: '/images/ingredients/spicy-pepperoni.png',
   },
   {
     name: 'Spicy Chorizo',
-    price: 4,
+    price: 3,
     imageUrl: '/images/ingredients/spicy-chorizo.png',
   },
   {
     name: 'Pickles',
-    price: 2,
+    price: 1,
     imageUrl: '/images/ingredients/pickles.png',
   },
   {
     name: 'Fresh tomatoes',
-    price: 3,
+    price: 1,
     imageUrl: '/images/ingredients/tomatoes.png',
   },
   {

@@ -1,13 +1,15 @@
 import { prisma } from '@/prisma/prisma-client'
+import { Sorting } from '../hooks/use-filters'
+
 export interface GetsSearchsParams {
   query?: string
-  sortBy?: string
   sizes?: string
   pizzaTypes?: string
   ingredients?: string
   limit?: string
   priceFrom?: string
   priceTo?: string
+  sortBy?: Sorting
 }
 
 const DEFAULT_MIN_PRICE = 0
@@ -19,12 +21,15 @@ export async function findPizzas(params: GetsSearchsParams) {
   const ingredientsIDArray = params.ingredients?.split(',').map(Number)
   const minPrice = Number(params.priceFrom) || DEFAULT_MIN_PRICE
   const maxPrice = Number(params.priceTo) || DEFAULT_MAX_PRICE
+  const sortBy = params.sortBy
+
+  const orderBy = sortBy === 'asc' ? 'asc' : 'desc'
 
   const categories = await prisma.category.findMany({
     include: {
       products: {
         orderBy: {
-          id: 'desc',
+          id: 'asc',
         },
         where: {
           ingredients: ingredientsIDArray
@@ -50,7 +55,7 @@ export async function findPizzas(params: GetsSearchsParams) {
         include: {
           items: {
             orderBy: {
-              price: 'asc',
+              price: orderBy,
             },
             where: {
               price: {

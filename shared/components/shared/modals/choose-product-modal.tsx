@@ -1,6 +1,6 @@
 'use client'
 
-import React from 'react'
+import React, { useState } from 'react'
 import { Dialog } from '../../ui'
 import { cn } from '@/shared/lib/utils'
 import { DialogContent, DialogTitle } from '@/shared/components/ui/dialog'
@@ -16,7 +16,12 @@ export const ChooseProductModal: React.FC<Props> = ({ className, product }) => {
   const router = useRouter()
 
   return (
-    <Dialog open={Boolean(product)} onOpenChange={() => router.back()}>
+    <Dialog
+      open={Boolean(product)}
+      onOpenChange={() => {
+        router.back()
+      }}
+    >
       <DialogContent
         className={cn(
           'p-0 w-[1060px] max-w-[1060px] min-h-[500px] bg-white overflow-hidden',
