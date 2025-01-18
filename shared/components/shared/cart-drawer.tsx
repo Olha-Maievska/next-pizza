@@ -11,19 +11,21 @@ import {
 } from '../ui/sheet'
 import Link from 'next/link'
 import { Button } from '../ui'
-import { ArrowRight } from 'lucide-react'
+import { ArrowRight, Loader } from 'lucide-react'
 import { CartDrawerItem } from './cart-drawer-item'
 import { getCartItemDetails } from '@/shared/lib'
 import { PizzaSize, PizzaType } from '@/shared/consts/pizza'
 import Image from 'next/image'
 import { cn } from '@/shared/lib/utils'
 import { useCart } from '@/shared/hooks'
+import { useCartStore } from '@/shared/store'
 
 export const CartDrawer: React.FC<React.PropsWithChildren> = ({ children }) => {
   const {
     cartState: { cartItems, totalAmount, removeCartItem },
     onClickCountBtn,
   } = useCart()
+  const loading = useCartStore((state) => state.loading)
   const [redirecting, setRedirecting] = React.useState(false)
 
   return (
@@ -45,7 +47,7 @@ export const CartDrawer: React.FC<React.PropsWithChildren> = ({ children }) => {
                 </SheetTitle>
               </SheetHeader>
 
-              <div className="-mx-6 mt-5 overflow-auto flex-1">
+              <div className="-mx-6 mt-5 overflow-auto flex-1 relative">
                 {cartItems.map((item) => (
                   <div className="mb-2" key={item.id}>
                     <CartDrawerItem
@@ -67,6 +69,17 @@ export const CartDrawer: React.FC<React.PropsWithChildren> = ({ children }) => {
                     />
                   </div>
                 ))}
+
+                {loading && (
+                  <div className="absolute left-0 top-0 right-0 bottom-0 bg-white/50 z-10">
+                    <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-20">
+                      <Loader
+                        className="w-6 h-6 animate-spin"
+                        color="#ff7700"
+                      />
+                    </div>
+                  </div>
+                )}
               </div>
 
               <SheetFooter className="-mx-6 bg-white p-8">
@@ -84,7 +97,7 @@ export const CartDrawer: React.FC<React.PropsWithChildren> = ({ children }) => {
                       className="w-full h-12 text-base"
                       type="submit"
                       onClick={() => setRedirecting(true)}
-                      loading={redirecting}
+                      loading={redirecting || loading}
                     >
                       Place an order
                       <ArrowRight className="w-5 ml-2" />

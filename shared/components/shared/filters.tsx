@@ -6,16 +6,14 @@ import { Input, Skeleton } from '../ui'
 import { RangeSlider } from './range-slider'
 import { CheckboxFiltersGroup } from './checkbox-filters-group'
 import { useFilters, useIngredients, useQueryFilters } from '@/shared/hooks'
-import { useCartStore } from '@/shared/store'
 
 interface Props {
   className?: string
 }
 
 export const Filters: React.FC<Props> = ({ className }) => {
-  const { ingredients } = useIngredients()
+  const { ingredients, loading } = useIngredients()
   const filters = useFilters()
-  const loading = useCartStore((state) => state.loading)
 
   useQueryFilters(filters)
 

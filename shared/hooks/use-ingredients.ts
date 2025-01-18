@@ -4,7 +4,7 @@ import { Api } from '@/shared/services/api-client'
 
 export const useIngredients = () => {
   const [ingredients, setIngredients] = useState<Ingredient[]>([])
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     async function getIngredients() {

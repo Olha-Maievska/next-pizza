@@ -3,6 +3,7 @@
 import {
   CheckoutAddress,
   CheckoutCart,
+  CheckoutEmptyCart,
   checkoutFormSchema,
   CheckoutFormType,
   CheckoutPersonalData,
@@ -81,6 +82,10 @@ export default function CheckoutPage() {
       fetchUserInfo()
     }
   }, [session])
+
+  if (cartItems.length === 0) {
+    return <CheckoutEmptyCart />
+  }
 
   return (
     <Container className="mt-10">
