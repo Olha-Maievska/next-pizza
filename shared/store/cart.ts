@@ -10,6 +10,8 @@ export interface CartState {
   disabled?: boolean
   totalAmount: number
   cartItems: CartStateItem[]
+  totalWithDeliveryFee: number
+  setTotalWithDeliveryFee: (fee: number) => void
   fetchCartItems: () => Promise<void>
   updateItemQty: (id: number, quantity: number) => Promise<void>
   addCartItem: (value: CreateCartItemValues) => Promise<void>
@@ -21,6 +23,7 @@ export const useCartStore = create<CartState>((set) => ({
   loading: true,
   error: false,
   totalAmount: 0,
+  totalWithDeliveryFee: 0,
 
   fetchCartItems: async () => {
     try {
@@ -82,4 +85,5 @@ export const useCartStore = create<CartState>((set) => ({
       set({ loading: false })
     }
   },
+  setTotalWithDeliveryFee: (fee: number) => set({ totalWithDeliveryFee: fee }),
 }))

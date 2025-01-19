@@ -1,15 +1,16 @@
 import { prisma } from '@/prisma/prisma-client'
 import { OrderSuccessTemplate } from '@/shared/components/shared/email-template/order-success'
 import { sendEmail } from '@/shared/lib'
-import { STRIPE_API_KEY } from '@/shared/lib/create-payment'
+import {
+  STRIPE_API_KEY,
+  STRIPE_WEBHOOK_SECRET,
+} from '@/shared/lib/create-payment'
 import { CartItemDTO } from '@/shared/services/dto/cart-dto'
 import { OrderStatus } from '@prisma/client'
 import { NextRequest, NextResponse } from 'next/server'
 import Stripe from 'stripe'
 
-const STRIPE_WEBHOOK_SECRET = 'whsec_Hl0sTB39eir6bur1Uk6f2DN7PdAaBzFF'
-
-const stripe = new Stripe(STRIPE_API_KEY as string)
+const stripe = new Stripe(STRIPE_API_KEY)
 
 export async function POST(req: NextRequest) {
   const sig = req.headers.get('stripe-signature')

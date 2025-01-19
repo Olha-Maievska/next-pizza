@@ -6,6 +6,7 @@ interface Details {
   amount: number
 }
 
+export const STRIPE_WEBHOOK_SECRET = 'whsec_Hl0sTB39eir6bur1Uk6f2DN7PdAaBzFF'
 export const STRIPE_API_KEY =
   'sk_test_51Qc93PCQ0eUEbioTdOtz5pvqtSK00TNvkHGUwCFgnhIkTZ6zyRjEvUmktRo7g1ZIuLLqGEt8qRe9ALEWZMgrFzvk00J3A9WcnF'
 
@@ -31,8 +32,8 @@ export async function createPayment(details: Details) {
       metadata: {
         order_id: details.orderID.toString(),
       },
-      success_url: `http://localhost:3000/?paid`,
-      cancel_url: `http://localhost:3000/?cancel`,
+      success_url: 'http://localhost:3000/?paid',
+      cancel_url: 'http://localhost:3000/?cancel',
     })
 
     return session

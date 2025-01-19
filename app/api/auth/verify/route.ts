@@ -1,5 +1,4 @@
 import { prisma } from '@/prisma/prisma-client'
-import { log } from 'console'
 import { NextRequest, NextResponse } from 'next/server'
 
 export async function GET(req: NextRequest) {

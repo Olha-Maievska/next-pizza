@@ -1,5 +1,4 @@
 import { prisma } from '@/prisma/prisma-client'
-import { Sorting } from '../hooks/use-filters'
 
 export interface GetsSearchsParams {
   query?: string
@@ -9,7 +8,6 @@ export interface GetsSearchsParams {
   limit?: string
   priceFrom?: string
   priceTo?: string
-  sortBy?: Sorting
 }
 
 const DEFAULT_MIN_PRICE = 0

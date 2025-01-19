@@ -16,9 +16,8 @@ export const PayOrderTemplate: React.FC<Props> = ({
   <div>
     <h4>Dear {firstName}!</h4>
     <p>
-      Pay for the <b>order #{orderID}</b> in the amount of{' '}
-      <b>{totalAmount} $</b> now! Follow <a href={paymantLink}>this link</a> to
-      pay for your order.
+      Pay for the <b>order #{orderID}</b> in the amount of <b>${totalAmount}</b>{' '}
+      now! Follow <a href={paymantLink}>this link</a> to pay for your order.
     </p>
     <p className="font-bold">Next Pizza team!</p>
   </div>

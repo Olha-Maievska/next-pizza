@@ -1,25 +1,26 @@
+'use client'
+
 import React from 'react'
 import { CheckoutContentBlock } from './checkout-content-block'
 import { cn } from '@/shared/lib/utils'
 import { CheckoutItemDetails } from './checkout-item-details'
 import { Button, Skeleton } from '../../ui'
 import { ArrowRight, Package, Truck } from 'lucide-react'
+import { useCart } from '@/shared/hooks'
 
 interface Props {
   className?: string
-  totalAmount: number
-  deliveryPrice: number | string
   loading?: boolean
 }
 
-export const CheckoutSidebar: React.FC<Props> = ({
-  className,
-  totalAmount,
-  deliveryPrice,
-  loading,
-}) => {
-  const delPrice = typeof deliveryPrice === 'string' ? 0 : deliveryPrice
-  const delText = !delPrice ? 'Free' : `$${deliveryPrice} `
+export const CheckoutSidebar: React.FC<Props> = ({ className, loading }) => {
+  const {
+    _delivery_price,
+    _free_delivery_count,
+    cartState: { totalWithDeliveryFee, totalAmount },
+  } = useCart()
+  const deliveryText =
+    totalAmount >= _free_delivery_count ? 'Free' : `$${_delivery_price}`
 
   return (
     <div className={cn('w-[450px]', className)}>
@@ -30,7 +31,7 @@ export const CheckoutSidebar: React.FC<Props> = ({
             <Skeleton className="w-full h-11" />
           ) : (
             <span className="h-11 font-extrabold text-[34px]">
-              ${totalAmount + delPrice}
+              ${totalWithDeliveryFee}
             </span>
           )}
         </div>
@@ -45,11 +46,11 @@ export const CheckoutSidebar: React.FC<Props> = ({
           />
           <CheckoutItemDetails
             title="Delivery"
-            value={loading ? <Skeleton className="w-24 h-6" /> : delText}
+            value={loading ? <Skeleton className="w-24 h-6" /> : deliveryText}
             icon={<Truck size={18} className="mr-2 text-gray-400" />}
           />
           <div className="text-sm text-gray-500 text-right">
-            free shipping over $30
+            free shipping over ${_free_delivery_count}
           </div>
         </div>
         <Button

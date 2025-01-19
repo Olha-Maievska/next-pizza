@@ -12,7 +12,10 @@ import { OrderStatus, Prisma } from '@prisma/client'
 import { hashSync } from 'bcrypt'
 import { cookies } from 'next/headers'
 
-export async function createOrder(data: CheckoutFormType) {
+export async function createOrder(
+  data: CheckoutFormType,
+  totalWithDeliveryFee: number
+) {
   try {
     const cookiesStore = await cookies()
     const token = cookiesStore.get('token')?.value
@@ -55,7 +58,7 @@ export async function createOrder(data: CheckoutFormType) {
         address: data.address,
         phone: data.phone,
         comment: data.comment || '',
-        totalAmount: userCart.totalAmount,
+        totalAmount: totalWithDeliveryFee,
         token,
         status: OrderStatus.PENDING,
         items: JSON.stringify(userCart.cartItems),

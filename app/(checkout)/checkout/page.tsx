@@ -20,14 +20,12 @@ import { useEffect, useState } from 'react'
 import { useSession } from 'next-auth/react'
 import { Api } from '@/shared/services/api-client'
 
-export const delivery_price = 11
-
 export default function CheckoutPage() {
   const {
-    cartState: { cartItems, totalAmount, removeCartItem, loading },
+    cartState: { cartItems, totalWithDeliveryFee, removeCartItem, loading },
     onClickCountBtn,
   } = useCart()
-  const deliveryAmount = totalAmount >= 30 ? 'Free' : delivery_price
+
   const [submitting, setSubmitting] = useState(false)
 
   const { data: session } = useSession()
@@ -47,7 +45,7 @@ export default function CheckoutPage() {
   const onSubmit = async (data: CheckoutFormType) => {
     try {
       setSubmitting(true)
-      const url = await createOrder(data)
+      const url = await createOrder(data, totalWithDeliveryFee)
 
       toast.success('Order created successfully! Switching to payment...', {
         icon: '✅',
@@ -112,11 +110,7 @@ export default function CheckoutPage() {
               />
             </div>
 
-            <CheckoutSidebar
-              totalAmount={totalAmount}
-              deliveryPrice={deliveryAmount}
-              loading={loading || submitting}
-            />
+            <CheckoutSidebar loading={loading || submitting} />
           </div>
         </form>
       </FormProvider>

@@ -3,6 +3,8 @@ import { CartState, useCartStore } from '../store'
 
 interface ReturnType {
   cartState: CartState
+  _delivery_price: number
+  _free_delivery_count: number
   onClickCountBtn: (
     id: number,
     quantity: number,
@@ -12,6 +14,8 @@ interface ReturnType {
 
 export const useCart = (): ReturnType => {
   const cartState = useCartStore((state) => state)
+  const _delivery_price = 7
+  const _free_delivery_count = 25
 
   const onClickCountBtn = (
     id: number,
@@ -26,5 +30,13 @@ export const useCart = (): ReturnType => {
     cartState.fetchCartItems()
   }, [])
 
-  return { cartState, onClickCountBtn }
+  useEffect(() => {
+    if (cartState.totalAmount >= _free_delivery_count) {
+      cartState.setTotalWithDeliveryFee(cartState.totalAmount)
+    } else {
+      cartState.setTotalWithDeliveryFee(cartState.totalAmount + _delivery_price)
+    }
+  }, [cartState.totalAmount])
+
+  return { cartState, onClickCountBtn, _delivery_price, _free_delivery_count }
 }
