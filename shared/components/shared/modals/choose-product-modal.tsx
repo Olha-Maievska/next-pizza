@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Dialog } from '../../ui'
 import { cn } from '@/shared/lib/utils'
 import { DialogContent, DialogTitle } from '@/shared/components/ui/dialog'
@@ -14,12 +14,22 @@ interface Props {
 }
 export const ChooseProductModal: React.FC<Props> = ({ className, product }) => {
   const router = useRouter()
+  const [isOpen, setIsOpen] = useState(false)
+
+  const handleClose = () => {
+    setIsOpen(false)
+    router.back()
+  }
+
+  useEffect(() => {
+    setIsOpen(Boolean(product))
+  }, [product])
 
   return (
     <Dialog
-      open={Boolean(product)}
-      onOpenChange={() => {
-        router.back()
+      open={isOpen}
+      onOpenChange={(open) => {
+        if (!open) handleClose()
       }}
     >
       <DialogContent
@@ -31,7 +41,7 @@ export const ChooseProductModal: React.FC<Props> = ({ className, product }) => {
       >
         <DialogTitle className="hidden">Choose a pizza</DialogTitle>
 
-        <ProductForm product={product} onSubmit={() => router.back()} />
+        <ProductForm product={product} onSubmit={handleClose} />
       </DialogContent>
     </Dialog>
   )
