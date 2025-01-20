@@ -1,7 +1,4 @@
-import { PizzaSize, PizzaType } from '@/shared/consts/pizza'
-import { getCartItemDetails } from '@/shared/lib'
 import { cn } from '@/shared/lib/utils'
-import { Ingredient } from '@prisma/client'
 
 interface Props {
   name: string

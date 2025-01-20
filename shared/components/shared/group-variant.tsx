@@ -1,7 +1,7 @@
 'use client'
 
 import { cn } from '@/shared/lib/utils'
-import React, { useEffect } from 'react'
+import React from 'react'
 
 export type Variant = {
   name: string

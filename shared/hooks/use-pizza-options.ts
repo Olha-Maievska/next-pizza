@@ -39,6 +39,7 @@ export const usePizzaOptions = (items: ProductItem[]): ReturnProps => {
     if (!isAvailableSize && availableSize) {
       setSize(Number(availableSize.value) as PizzaSize)
     }
+    //eslint-disable-next-line
   }, [type])
 
   return {

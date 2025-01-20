@@ -21,5 +21,6 @@ export const useQueryFilters = (filters: Filters) => {
     }
 
     isMounted.current = true
+    //eslint-disable-next-line
   }, [filters])
 }

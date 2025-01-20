@@ -2,7 +2,6 @@ import React from 'react'
 import { CartItemProps } from '../cart-item-details/cart-item-details.types'
 import * as CartItemDetails from '../cart-item-details'
 import { cn } from '@/shared/lib/utils'
-import { Ingredient } from '@prisma/client'
 import { X } from 'lucide-react'
 
 interface Props extends CartItemProps {

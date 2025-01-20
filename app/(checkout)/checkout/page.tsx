@@ -79,6 +79,7 @@ export default function CheckoutPage() {
     if (session) {
       fetchUserInfo()
     }
+    //eslint-disable-next-line
   }, [session])
 
   if (cartItems.length === 0) {

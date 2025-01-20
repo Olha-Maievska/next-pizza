@@ -28,6 +28,7 @@ export const useCart = (): ReturnType => {
 
   useEffect(() => {
     cartState.fetchCartItems()
+    //eslint-disable-next-line
   }, [])
 
   useEffect(() => {
@@ -36,6 +37,7 @@ export const useCart = (): ReturnType => {
     } else {
       cartState.setTotalWithDeliveryFee(cartState.totalAmount + _delivery_price)
     }
+    //eslint-disable-next-line
   }, [cartState.totalAmount])
 
   return { cartState, onClickCountBtn, _delivery_price, _free_delivery_count }

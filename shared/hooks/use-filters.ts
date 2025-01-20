@@ -70,6 +70,7 @@ export const useFilters = (): ReturnProps => {
       setSizes,
       setIngredients,
     }),
+    //eslint-disable-next-line
     [sizes, pizzaTypes, selectedIngredients, prices]
   )
 }
