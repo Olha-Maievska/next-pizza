@@ -10,7 +10,7 @@ import { useIngredients } from '@/shared/hooks'
 
 interface Props {
   className?: string
-  id: number
+  id: string
   name: string
   imageUrl: string
   price: number
