@@ -32,8 +32,8 @@ export async function createPayment(details: Details) {
       metadata: {
         order_id: details.orderID.toString(),
       },
-      success_url: 'http://localhost:3000/?paid',
-      cancel_url: 'http://localhost:3000/?cancel',
+      success_url: 'https://next-pizza-food.vercel.app/?paid',
+      cancel_url: 'https://next-pizza-food.vercel.app/?cancel',
     })
 
     return session
