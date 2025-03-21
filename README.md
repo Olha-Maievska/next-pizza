@@ -11,7 +11,7 @@ Next.js,
 - Tailwind CSS,
 - Prisma,
 - Zustand,
-- Radix UI, N
+- Radix UI,
 - NextAuth,
 - React Hook Form,
 - Zod,
